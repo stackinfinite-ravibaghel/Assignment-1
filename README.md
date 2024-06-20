@@ -1,2 +1,2 @@
-# Assignment-1
+# Assignment1
 Assignment Project of internship Program
