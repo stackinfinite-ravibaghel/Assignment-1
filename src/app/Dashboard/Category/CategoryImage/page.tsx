@@ -2,7 +2,11 @@ import Image from 'next/image'
 
 export default function CategoryImage () {
   return (
-    <div className='flex justify-center'>
+    
+
+<div className="w-full justify-center  content-center bg-white rounded-md p-2 ">
+<div className="flex justify-center">
+<div className='flex justify-center'>
           <Image
             src="/category/aa.webp"
             width={50}
@@ -11,5 +15,10 @@ export default function CategoryImage () {
             className="content-center"
           />
         </div>
+</div>
+
+<div className="justify-center text-center mt-2 ">Mobile</div>
+</div>
+
   )
 }

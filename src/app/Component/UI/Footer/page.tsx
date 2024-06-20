@@ -5,15 +5,12 @@ import { FaFacebookF, FaLinkedinIn, FaGoogle } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <div className=" w-full flex flex-col justify-between items-center p-5 bg-green-500">
+    <div className=" w-full flex flex-col  p-5 bg-red-300">
 
-      <div className="w-full flex justify-between items-center p-5 bg-green-500">
-        <Logo />
-        {/* <div className="text-left font-bold">
-          <span className="text-white">Peter</span>Bugs
-        </div> */}
-
-        <div className="flex justify-center ">
+      <div className="w-full flex flex-col lg:flex-row lg:justify-between xl:flex-row xl:justify-between justify-center items-center p-5 ">
+        
+        <div ><Logo /></div>
+        <div className="flex flex-row justify-center pt-5 ">
           <a
             href="#"
             className="border-2 border-white rounded-full p-5 mx-2 bg-white"
@@ -35,8 +32,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="inline-block flex ">
-        <span className="text-2xl">Copyright @2024 </span> <Logo/>
+      <div className="flex justify-center items-center ">
+        <span className=" inline-block lg:2xl">Copyright @2024 .</span>
+        <span><Logo/></span>
       </div>
     </div>
   );

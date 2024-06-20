@@ -17,19 +17,19 @@ export default function Header() {
   };
 
   return (
-    <div className=" w-full flex justify-between items-center p-5 bg-green-500">
+    <div className=" w-full flex justify-between items-center p-5 bg-red-300">
       <Logo />
       <SearchInput />
 
       <div className="flex justify-center ">
         <a
           href="#"
-          className="border-2 border-white rounded-full p-5 mx-2 bg-white static"
+          className="border-2 border-white rounded-full lg:px-5 xl:px-5 p-4 mx-2 bg-white static"
           onClick={handleSubmit}
         >
           <TbShoppingCart  />
         </a>
-        <span className=" flex rounded-full bg-red-500 align-top ms-12 px-2 absolute">
+        <span className=" flex rounded-full bg-green-400 align-top ms-12 px-2 absolute">
           10
         </span>
       </div>

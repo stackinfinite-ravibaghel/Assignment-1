@@ -3,7 +3,7 @@ import Product from "./Product/page";
 
 export default function ProductView() {
   return (
-    <div className="w-full bg-gray-100 text-black place-content-center  grid grid-cols-4 gap-4 p-6 ">
+    <div className="w-full place-content-center grid grid-cols-6  sm:grid-cols-1  md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 p-6 ">
     
       <Product />
       <Product />
@@ -17,9 +17,6 @@ export default function ProductView() {
       <Product />
       <Product />
       <Product />
-      
-
-      
 
     </div>
   );
