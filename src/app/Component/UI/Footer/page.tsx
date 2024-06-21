@@ -33,7 +33,7 @@ export default function Footer() {
       </div>
 
       <div className="flex justify-center items-center ">
-        <span className=" inline-block lg:2xl">Copyright @2024 .</span>
+        <span className=" inline-block sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">Copyright @2024 .</span>
         <span><Logo/></span>
       </div>
     </div>
