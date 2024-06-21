@@ -8,13 +8,13 @@ const config: Config = {
   ],
   theme: {
     screens: {
-      'sm': {'min': '320px', 'max': '374px'},
+      'sm': {'min': '320px', 'max': '375px'},
       // => @media (min-width: 320px and max-width: 425px) { ... }
 
-      'md': {'min': '375px', 'max': '768px'},
+      'md': {'min': '375px', 'max': '767px'},
       // => @media (min-width: 426px and max-width: 768px) { ... }
 
-      'lg': {'min': '768px', 'max': '1023px'},
+      'lg': {'min': '768px', 'max': '1024px'},
       // => @media (min-width: 769px and max-width: 1024px) { ... }
 
       'xl': {'min': '1024px', 'max': '2560px'},

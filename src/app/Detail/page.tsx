@@ -10,12 +10,12 @@ export default function Detail() {
       md:py-4 lg:py-6 px-5 sm:px-2
       md:px-4 lg:px-6 sm:flex-col md:flex-col  lg:flex-col "
       >
-        <div className=" w-1/3 sm:w-full md:w-full lg:w-full flex flex-col relative">
+        <div className=" w-1/3 sm:w-full md:w-full lg:w-full xl:full flex flex-col justify-items-center relative">
         
           <div className="flex justify-center w-fit rounded-md border-2 border-green-400 py-10 px-5 ">
             <Image
-              src="/mobile/oppo.jpg"
-              width={800}
+              src="/shirt/tshirt.webp"
+              width={600}
               height={80}
               alt="Picture of the author"
               className="content-center "
@@ -24,35 +24,35 @@ export default function Detail() {
           {/* Preview Image */}
           <div className="flex flex-row justify-between w-full h-fit p-2 ">
             <Image
-              src="/mobile/oppoo.jpg"
+              src="/shirt/tshirtt.webp"
               width={120}
               height={20}
               alt="Picture of the author"
               className="rounded-md border-2 border-black p-2 my-2 hover: hover:border-red-400"
             />
             <Image
-              src="/mobile/oppooo.jpg"
+              src="/shirt/tshirttt.webp"
               width={120}
               height={20}
               alt="Picture of the author"
               className="rounded-md border-2 border-black p-2 my-2 hover:border-red-400"
             />
             <Image
-              src="/mobile/oppoooo.jpg"
+              src="/shirt/tshirtttt.webp"
               width={120}
               height={20}
               alt="Picture of the author"
               className="rounded-md border-2 border-black p-2 my-2 hover:border-red-400 sm:invisible"
             />
             <Image
-              src="/mobile/oppooooo.jpg"
+              src="/shirt/tshirttttt.webp"
               width={120}
               height={20}
               alt="Picture of the author"
               className="rounded-md border-2 border-black p-2 my-2 hover:border-red-400 sm:invisible md:invisible "
             />
             {/* <Image
-              src="/mobile/oppoooooo.jpg"
+              src="/shirt/tshirtttttt.webp"
               width={120}
               height={20}
               alt="Picture of the author"
@@ -62,7 +62,7 @@ export default function Detail() {
         </div>
         {/* Preview Image End */}
         <div
-          className="flex flex-col w-2/3 sm:w-full 
+          className="flex flex-col w-2/3 sm:w-full md:w-full lg:w-full 
         px-20 py-10 sm:px-2 md:px-4 lg:px-6 relative"
         >
           {/* <div className="flex w-fit absolute top-2 right-2 rounded-md border-2 bg-red-300 border-green-400 p-2 text-2xl text-black sm:invisible md:invisible lg:invisible">
@@ -70,7 +70,7 @@ export default function Detail() {
           </div> */}
 
           <div className="font-bold text-4xl my-5 sm:text-sm md:text-base lg:text-lg w-full  ">Men's Fasion T-Shirt</div>
-          <div className="text-4xl my-5 sm:text-sm md:text-base lg:text-lg">₹ 32,999</div>
+          <div className="text-4xl my-5 sm:text-sm md:text-base lg:text-lg">₹ 2,999</div>
 
           {/* Size */}
           <div className="flex flex-row">
@@ -114,7 +114,7 @@ export default function Detail() {
             </span>
             <br />
 
-            <span className="font-bold text-blue-700 text-2xl"> See More ...</span>
+            <span className="font-bold text-blue-700 text-2xl sm:text-sm md:text-base lg:text-lg"> See More ...</span>
           </div>
         </div>
       </div>
