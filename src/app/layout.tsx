@@ -2,6 +2,7 @@
 import { usePathname } from "next/navigation";
 
 import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -32,7 +33,7 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* Condition for display Header */}
         {display.includes(pathname) ? null : <Header />}
-
+        <Toaster position="bottom-center" />
         {children}
         
         {/* Condition for display Footer */}
