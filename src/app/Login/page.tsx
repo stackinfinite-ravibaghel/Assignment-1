@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import Logo from "../Component/UI/Logo/page";
 import Form from "./Form/page";
 
+
 export default function Home() {
 
   const router = useRouter();
@@ -12,9 +13,9 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen p-2 md:py-5 lg:py-10 xl:py-15 2xl:py-20 md:px-20 lg:px-32 xl:px-52 2xl:px-72 bg-gray-100">
+    <div className="flex flex-col items-center justify-center w-full min-h-screen p-2 md:py-5 lg:py-10 xl:py-15 2xl:py-20 md:px-20 lg:px-32 xl:px-52 2xl:px-72 bg-gray-100">
       <div className="flex w-full h-full flex-col sm:flex-row ">
-        <div className="sm:w-3/5 flex flex-col bg-red-200 rounded-t-2xl sm:rounded-l-2xl sm:rounded-none">
+        <div className="sm:w-3/5 flex flex-col bg-white rounded-t-2xl sm:rounded-l-2xl sm:rounded-none">
           <div className=" px-6 rounded-tl-2xl pt-8">
             <Logo />
           </div>
@@ -25,25 +26,36 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="sm:w-2/5 flex justify-center items-center bg-green-400 rounded-b-2xl sm:rounded-r-2xl sm:rounded-none py-8">
+        <div className="sm:w-2/5 flex justify-center items-center bg-green-400 rounded-b-2xl sm:rounded-r-2xl sm:rounded-none ">
           {/* Sign in Section */}
-          HHHIII
-          {/* <div className="w-2/5 bg-green-500 rounded-tr-2xl rounded-br-2xl py-36 px-12 invisible lg:visible">
-            <h2 className="text-3xl font-bold mb-2 text-white">
-              Hello, Friend!
+          
+          <div className=" py-4 px-6 justify-center items-center flex flex-col ">
+            <h2 className="text-3xl font-bold mb-2 text-white text-center ">
+              Hello Friend!
             </h2>
             <div className="border-2 w-10 border-white inline-block mb-2"></div>
-            <p className="mb-10">
+            <p className="my-10 text-center">
               Fill up personal information & start journey with us.
             </p>
 
+            {/* Submit button */}
+        {/* <div className="flex items-center justify-center">
+          <button 
+            className="bg-white text-green-500 border border-green-500 rounded-lg hover:bg-green-500 hover:text-white font-bold py-2  px-6  focus:outline-none focus:shadow-outline"
+            type="submit"
+            >
+            Submit
+          </button>
+        </div> */}
+        {/* Submit button */}
+
             <button
-              className="border-2 border-white rounded-full sm:px-8 px-12 py-2 inline-block font-semibold hover:bg-white hover:text-green-500 hover:border-black text-nowrap"
+              className="bg-white text-green-500 border border-black rounded-lg hover:bg-green-500 hover:text-white font-bold py-2  px-6  focus:outline-none focus:shadow-outline"
               onClick={() => router.push("SignUp")}
             >
               Sign Up
             </button>
-          </div> */}
+          </div>
           {/* Sign Up Section */}
         </div>
       </div>
