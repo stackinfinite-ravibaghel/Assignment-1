@@ -1,11 +1,9 @@
-"use client"
+"use client";
 import { useRouter } from "next/navigation";
 import Logo from "../Component/UI/Logo/page";
-import Form from "./Form/page";
-
+import Forms from "./Forms/page";
 
 export default function Home() {
-
   const router = useRouter();
 
   const handleSubmit = () => {
@@ -22,13 +20,13 @@ export default function Home() {
           <div className=" px-2 h-full flex justify-center items-center py-8">
             {/* <Logo /> */}
             {/* Hey */}
-            <Form />
+            <Forms />
           </div>
         </div>
 
         <div className="sm:w-2/5 flex justify-center items-center bg-green-400 rounded-b-2xl sm:rounded-r-2xl sm:rounded-none ">
-          {/* Sign in Section */}
-          
+          {/* Sign Up Section */}
+
           <div className=" py-4 px-6 justify-center items-center flex flex-col ">
             <h2 className="text-3xl font-bold mb-2 text-white text-center ">
               Hello Friend!
@@ -39,22 +37,15 @@ export default function Home() {
             </p>
 
             {/* Submit button */}
-        {/* <div className="flex items-center justify-center">
-          <button 
-            className="bg-white text-green-500 border border-green-500 rounded-lg hover:bg-green-500 hover:text-white font-bold py-2  px-6  focus:outline-none focus:shadow-outline"
-            type="submit"
-            >
-            Submit
-          </button>
-        </div> */}
-        {/* Submit button */}
-
-            <button
-              className="bg-white text-green-500 border border-black rounded-lg hover:bg-green-500 hover:text-white font-bold py-2  px-6  focus:outline-none focus:shadow-outline"
-              onClick={() => router.push("SignUp")}
-            >
-              Sign Up
-            </button>
+            <div className="flex items-center justify-center">
+              <button
+                className="bg-white text-green-500 border border-black rounded-lg hover:bg-green-500 hover:text-white font-bold py-2  px-6  focus:outline-none focus:shadow-outline"
+                onClick={() => router.push("SignUp")}
+              >
+                Sign Up
+              </button>
+            </div>
+            {/* Submit button */}
           </div>
           {/* Sign Up Section */}
         </div>
