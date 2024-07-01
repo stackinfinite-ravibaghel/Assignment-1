@@ -16,6 +16,8 @@ import { IoMdEye } from "react-icons/io";
 import { IoEyeOff } from "react-icons/io5";
 import Logo from "../Component/UI/Logo/page";
 
+import { signup } from "../Services/page";
+
 // SignUp component
 const SignUp: React.FC = () => {
   const router = useRouter();
@@ -51,20 +53,15 @@ const SignUp: React.FC = () => {
     password: string;
   }) => {
     const { fullName, email, password } = values;
-    const apiUrl = "http://192.168.1.8:8001/api/auth/sign-up";
 
     try {
       // Make POST request to sign-up API
-      const response = await axios.post(apiUrl, {
-        name: fullName,
-        email,
-        password,
-      });
+      const signupResponse = await signup(fullName , email , password)
 
       // Redirect to Dashboard upon successful signup
       router.push("/Dashboard");
       toast.success("Sign Up successful.");
-      console.log("Sign Up successful:", response.data);
+      console.log("Sign Up successful:", signupResponse);
     } catch (error) {
       toast.error("Failed to sign up. Please check your details.");
       console.error("Sign Up failed:", error);

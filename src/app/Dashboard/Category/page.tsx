@@ -2,19 +2,19 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { fetchCategories } from '../../Services/page';
 
 const Category: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [categories, setCategories] = useState<any[]>([]); // State to store fetched categories
-
-  // Fetch categories from API
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://192.168.1.8:8001/api/categories");
-        setCategories(response.data); // Assuming response.data is an array of categories
+        const categoriesData = await fetchCategories();
+        setCategories(categoriesData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching products:", error);
       }
     };
 

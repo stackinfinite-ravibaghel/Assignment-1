@@ -226,6 +226,18 @@
 
 // export default Form;
 
+
+
+
+
+
+
+
+
+
+
+
+
 // components/LoginForm.tsx
 
 "use client";
@@ -235,6 +247,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Cookies from "universal-cookie";
 
 import {
   FaFacebookF,
@@ -244,11 +257,15 @@ import {
 } from "react-icons/fa";
 import { IoMdEye } from "react-icons/io";
 import { IoEyeOff } from "react-icons/io5";
+import { login } from '../../Services/page';
+
 
 
 const Forms: React.FC = () => {
 
   const router = useRouter();
+  const cookies = new Cookies();
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Initial state is false
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -267,26 +284,43 @@ const Forms: React.FC = () => {
       .required("Password is required"),
   });
 
-  // Handle form submission
+
   const handleSubmit = async (values: { email: string; password: string }) => {
     const { email, password } = values;
 
-    // API endpoint URL
-    const apiUrl = "http://192.168.1.8:8001/api/auth/sign-in";
-
     try {
-      // Make POST request to login API
-      const response = await axios.post(apiUrl, { email, password });
+      const loginResponse = await login(email, password);
+
+
+//     // if (response.status === 200) {
+       // Login successful
+      toast.success("Login successful.");
+      console.log("Login successful:", loginResponse);
+
+      // Store email in cookie
+      cookies.set("email", email, { path: "/" });
+      setIsAuthenticated(true);
 
       router.push(`Dashboard`);
-      toast.success("Login successful.");
-      console.log("Login successful:", response.data);
 
-    } catch (error) {
-      toast.error("Please enter both valid value.");
+    // } else {
+      // Handle other status codes as needed
+      // console.error("Login failed with status:", response.status);
+    // } 
+    
+    } catch (error : any) {
+      // Handle network errors or API response errors
+      const errorMessage =
+        error.response && error.response.data && error.response.data.message
+          ? error.response.data.message
+          : "Something went wrong.";
+
+      toast.error(errorMessage);
       console.error("Login failed:", error);
     }
   };
+
+
 
   return (
     <div className="flex items-center justify-center min-h-fit ">
@@ -448,3 +482,15 @@ const Forms: React.FC = () => {
 };
 
 export default Forms;
+
+
+
+
+
+
+
+
+
+
+
+
