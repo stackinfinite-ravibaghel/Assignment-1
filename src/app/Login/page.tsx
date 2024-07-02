@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import Logo from "../Component/UI/Logo/page";
 import Forms from "./Forms/page";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="sm:w-2/5 flex justify-center items-center bg-green-400 rounded-b-2xl sm:rounded-r-2xl sm:rounded-none ">
+        <div className="sm:w-2/5 flex justify-center items-center bg-red-300 rounded-b-2xl sm:rounded-r-2xl sm:rounded-none ">
           {/* Sign Up Section */}
 
           <div className=" py-4 px-6 justify-center items-center flex flex-col ">
@@ -38,12 +39,13 @@ export default function Home() {
 
             {/* Submit button */}
             <div className="flex items-center justify-center">
-              <button
+              {/* <button
                 className="bg-white text-green-500 border border-black rounded-lg hover:bg-green-500 hover:text-white font-bold py-2  px-6  focus:outline-none focus:shadow-outline"
                 onClick={() => router.push("SignUp")}
               >
                 Sign Up
-              </button>
+              </button> */}
+              <Link href={'/SignUp'} className="bg-white text-green-500 border border-black rounded-lg hover:bg-green-500 hover:text-white font-bold py-2  px-6  focus:outline-none focus:shadow-outline">Sign Up</Link>
             </div>
             {/* Submit button */}
           </div>
@@ -53,6 +55,48 @@ export default function Home() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // "use client";
 // import { useRouter } from "next/navigation";

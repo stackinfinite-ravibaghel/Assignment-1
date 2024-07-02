@@ -19,7 +19,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     }
   }, [isAuthenticated, router]);
 
-  return <>{isAuthenticated && children}</>; // Render children only if authenticated
+  // return <>{isAuthenticated && children}</>; 
+  // Render children only if authenticated
+
+  // If isAuthenticated is true, render children; otherwise, do nothing
+  return isAuthenticated ? <>{children}</> : null;
 };
 
 export default ProtectedRoute;

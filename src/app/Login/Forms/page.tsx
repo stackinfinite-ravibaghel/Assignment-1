@@ -226,18 +226,6 @@
 
 // export default Form;
 
-
-
-
-
-
-
-
-
-
-
-
-
 // components/LoginForm.tsx
 
 "use client";
@@ -246,6 +234,7 @@ import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+
 import toast from "react-hot-toast";
 import Cookies from "universal-cookie";
 
@@ -257,12 +246,10 @@ import {
 } from "react-icons/fa";
 import { IoMdEye } from "react-icons/io";
 import { IoEyeOff } from "react-icons/io5";
-import { login } from '../../Services/page';
-
-
+import { login } from "../../Services/page";
+import Link from "next/link";
 
 const Forms: React.FC = () => {
-
   const router = useRouter();
   const cookies = new Cookies();
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Initial state is false
@@ -284,16 +271,14 @@ const Forms: React.FC = () => {
       .required("Password is required"),
   });
 
-
   const handleSubmit = async (values: { email: string; password: string }) => {
     const { email, password } = values;
 
     try {
       const loginResponse = await login(email, password);
 
-
-//     // if (response.status === 200) {
-       // Login successful
+      //     // if (response.status === 200) {
+      // Login successful
       toast.success("Login successful.");
       console.log("Login successful:", loginResponse);
 
@@ -303,12 +288,11 @@ const Forms: React.FC = () => {
 
       router.push(`Dashboard`);
 
-    // } else {
+      // } else {
       // Handle other status codes as needed
       // console.error("Login failed with status:", response.status);
-    // } 
-    
-    } catch (error : any) {
+      // }
+    } catch (error: any) {
       // Handle network errors or API response errors
       const errorMessage =
         error.response && error.response.data && error.response.data.message
@@ -319,8 +303,6 @@ const Forms: React.FC = () => {
       console.error("Login failed:", error);
     }
   };
-
-
 
   return (
     <div className="flex items-center justify-center min-h-fit ">
@@ -405,7 +387,7 @@ const Forms: React.FC = () => {
             />
           </div>
 
-          <div className="mb-6">
+          <div >
             <label
               htmlFor="password"
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -467,6 +449,16 @@ const Forms: React.FC = () => {
             />
           </div>
 
+          <div className="flex w-full px-5 my-5 justify-between">
+            <label className="flex items-center text-xs font-semibold">
+              <input type="checkbox" name="remember" className="mr-1 " />
+              Remember me
+            </label>
+            <Link href="#" className="text-xs hover:text-blue-500 font-semibold">
+              Forget Password
+            </Link>
+          </div>
+
           <div className="flex flex-col items-center justify-between ">
             <button
               type="submit"
@@ -482,15 +474,3 @@ const Forms: React.FC = () => {
 };
 
 export default Forms;
-
-
-
-
-
-
-
-
-
-
-
-

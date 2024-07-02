@@ -15,6 +15,7 @@ import {
 import { IoMdEye } from "react-icons/io";
 import { IoEyeOff } from "react-icons/io5";
 import Logo from "../Component/UI/Logo/page";
+import Link from "next/link";
 
 import { signup } from "../Services/page";
 
@@ -69,7 +70,7 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-5">
       <Formik
         initialValues={{
           fullName: "",
@@ -80,9 +81,9 @@ const SignUp: React.FC = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form className="py-8 px-4 rounded-lg w-full max-w-md bg-white shadow-md">
+        <Form className="py-5 px-4 rounded-lg w-full max-w-md bg-white shadow-md">
           <div className="flex flex-col my-5 items-center justify-center">
-            <div className=" px-6 rounded-tl-2xl pb-8">
+            <div className=" px-6 rounded-tl-2xl pb-5">
               <Logo />
             </div>
             <h2 className="text-md sm:text-2xl lg:text-3xl font-bold text-green-500 mb-2">
@@ -293,8 +294,14 @@ const SignUp: React.FC = () => {
             >
               Sign Up
             </button>
+
+            <div className="text-black my-3 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl flex items-center">
+              <span className="text-center">Aready have an account ? </span>
+              <Link href={'/'} className="text-center font-semibold text-blue-500"> Login</Link>
+            </div>
           </div>
         </Form>
+        
       </Formik>
     </div>
   );

@@ -5,7 +5,7 @@ import ProtectedRoute from "../ProtectedRoute/page";
 
 export default function Dashboard() {
   return (
-    <ProtectedRoute>
+    // <ProtectedRoute>
       <main className="flex min-h-screen flex-col items-center justify-between w-full">
         <div className="w-full">
           <Category />
@@ -14,6 +14,6 @@ export default function Dashboard() {
           </div>
         </div>
       </main>
-    </ProtectedRoute>
+    // </ProtectedRoute>
   );
 }

@@ -2,12 +2,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { fetchCategories } from '../../Services/page';
+import { fetchCategories } from "../../Services/page";
 
 const Category: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [categories, setCategories] = useState<any[]>([]); // State to store fetched categories
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,14 +37,14 @@ const Category: React.FC = () => {
     <div className="relative bg-slate-100">
       <button
         onClick={scrollLeft}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full shadow-md hover:bg-green-500 z-10 sm:left-0 sm:top-1/2 sm:transform sm:-translate-y-1/2 xl:invisible 2xl:invisible"
+        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full shadow-md hover:bg-green-500 z-10 sm:left-0 sm:top-1/2 sm:transform sm:-translate-y-1/2 "
       >
         <FiChevronLeft size={24} />
       </button>
 
       <div
         ref={scrollRef}
-        className="flex overflow-x-auto space-x-2 p-1 max-w-screen px-10 lg:justify-center xl:justify-center 2xl:justify-center xl:space-x-4 2xl:space-x-6"
+        className="flex overflow-x-auto space-x-2 p-1 max-w-screen px-2 pl-10 justify-center "
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {categories.map((category: any) => (
@@ -67,7 +67,7 @@ const Category: React.FC = () => {
 
       <button
         onClick={scrollRight}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full shadow-md hover:bg-green-500 z-10 xl:invisible 2xl:invisible"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-200 p-2 rounded-full shadow-md hover:bg-green-500 z-10 "
       >
         <FiChevronRight size={24} />
       </button>
@@ -76,7 +76,6 @@ const Category: React.FC = () => {
 };
 
 export default Category;
-
 
 // "use client";
 // import React, { useRef, useEffect, useState } from "react";
@@ -158,8 +157,6 @@ export default Category;
 
 // export default Category;
 
-
-
 // "use client";
 // import React, { useRef } from "react";
 // import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -225,15 +222,13 @@ export default Category;
 //           >
 //             <FiChevronRight size={24} />
 //           </button>
-          
+
 //     </div>
 //   )
 
 // };
 
 // export default Category;
-
-
 
 // import Image from "next/image";
 // import CategoryImage from "./CategoryImage/page";
