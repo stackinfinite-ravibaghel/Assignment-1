@@ -1,8 +1,7 @@
-
-
 import axios from 'axios';
 
-const apiUrl = 'http://192.168.1.11:8001/api'; // Base URL for your APIs
+const apiUrl = 'http://192.168.1.10:8001/api'; 
+// Base URL for your APIs
 
 // Function to handle login
 export const login = async (email: string, password: string) => {
@@ -27,7 +26,7 @@ export const signup = async (name: string, email: string, password: string) => {
 };
 
 // Function to fetch products
-export const fetchProducts = async () => {
+export const fetchDefaultProducts = async () => {
   try {
     const response = await axios.get(`${apiUrl}/products`);
     return response.data; // Assuming response.data is an array of products
@@ -37,11 +36,25 @@ export const fetchProducts = async () => {
   }
 };
 
+// Function to fetch products by id
+export const fetchProductbyid = async (productId :any) => {
+  try {
+    const response = await axios.get(`${apiUrl}/products/?categoryId=${productId}`);
+    console.log(response.data)
+    return response.data;
+     // Assuming response.data is an array of products
+  } catch (error) {
+    console.error("Error fetching product ${productId}:", error);
+    throw error; // Throw error to be handled by the caller
+  }
+};
+
 // Function to fetch category
 export const fetchCategories = async () => {
   try {
     const response = await axios.get(`${apiUrl}/categories`);
     return response.data; // Assuming response.data is an array of products
+    // console.log(response.data);
   } catch (error) {
     console.error("Error fetching categories:", error);
     throw error; // Throw error to be handled by the caller

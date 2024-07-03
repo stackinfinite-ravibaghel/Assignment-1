@@ -256,6 +256,16 @@ const Forms: React.FC = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false); // State for showing the modal
+
+  const openModal = () => {
+    setShowForgotPasswordModal(true);
+  };
+  
+  const closeModal = () => {
+    setShowForgotPasswordModal(false);
+  };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -301,6 +311,20 @@ const Forms: React.FC = () => {
 
       toast.error(errorMessage);
       console.error("Login failed:", error);
+    }
+  };
+
+  // Function to handle forgot password submission
+  const handleForgotPassword = async (email: string) => {
+    try {
+      // Implement your forgot password logic here, e.g., send a reset link
+      toast.success("Password reset instructions sent to your email.");
+      console.log("Forgot Password successful for email:", email);
+      // Close the modal after handling
+      setShowForgotPasswordModal(false);
+    } catch (error) {
+      toast.error("Failed to send reset instructions. Please try again.");
+      console.error("Forgot Password failed:", error);
     }
   };
 
@@ -454,10 +478,58 @@ const Forms: React.FC = () => {
               <input type="checkbox" name="remember" className="mr-1 " />
               Remember me
             </label>
-            <Link href="#" className="text-xs hover:text-blue-500 font-semibold">
+            <button className="text-xs hover:text-blue-500 font-semibold" type="button" onClick={() => openModal()}>
               Forget Password
-            </Link>
+            </button>
           </div>
+
+
+
+          
+{/* Forgot Password Modal */}
+{showForgotPasswordModal && (
+  <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+    <div className="bg-white w-full max-w-md p-5 rounded-lg shadow-lg">
+      <h2 className="text-lg font-bold text-gray-800 mb-4">Forgot Password?</h2>
+      <p className="text-sm text-gray-600 mb-6">
+        Enter your email to receive instructions to reset your password.
+      </p>
+      <div className="mb-4">
+        <label htmlFor="forgotPasswordEmail" className="block text-gray-700 text-sm font-bold mb-2">
+          Email
+        </label>
+        <Field
+          type="email"
+          id="forgotPasswordEmail"
+          name="forgotPasswordEmail"
+          placeholder="Enter your email"
+          className="pl-3 pr-4 py-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:border-indigo-500"
+        />
+      </div>
+      <div className="flex justify-end">
+        <button
+          type="button"
+          className="bg-green-500 text-white border border-black rounded-lg hover:bg-white hover:text-green-500 font-bold py-2 px-4 mr-2 focus:outline-none focus:shadow-outline"
+          onClick={closeModal}
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          className="bg-green-500 text-white border border-black rounded-lg hover:bg-white hover:text-green-500 font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
+          onClick={() => {
+            // handleForgotPassword(values.forgotPasswordEmail);
+            closeModal();
+          }}
+        >
+          Reset Password
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+            {/* End form content */}
 
           <div className="flex flex-col items-center justify-between ">
             <button

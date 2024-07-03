@@ -1,24 +1,38 @@
+"use client"
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../../../Services/page";
+import { fetchDefaultProducts , fetchProductbyid } from "../../../Services/page";
 
-const Product = () => {
+
+interface Props {
+  selectedCategoryId: string | null; // Define selectedCategoryId as a prop
+}
+
+const Product: React.FC = ({products } : any ) => {
   const router = useRouter();
-  const [products, setProducts] = useState<any[]>([]); // State to hold products
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const productResponse = await fetchProducts();
-        setProducts(productResponse.products); // Assuming response.data has a 'products' array
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
 
-    fetchData();
-  }, []);
+
+
+
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       if (selectedCategoryId) {
+  //         const productResponse = await fetchProducts(selectedCategoryId);
+  //         setProducts(productResponse.products);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching products:', error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [selectedCategoryId]); // Fetch data again when selectedCategoryId changes
+
+
 
   const handleSubmit = (productId: string) => {
     router.push(`/Detail`);
@@ -32,19 +46,20 @@ const Product = () => {
 
   return (
     <div className="flex flex-wrap justify-center gap-5 p-2">
-      {products.map((product) => (
+      {products.map((product : any) => (
         <div
           key={product._id}
           className="min-w-screen bg-white rounded-md border-2 border-black py-2 px-2 cursor-pointer"
           onClick={() => handleSubmit(product._id)}
         >
           <div className="flex justify-center">
+
             <img
-              src={product.images[0]} // Assuming product has an 'images' array with at least one image URL
+              src={product.images[0]?product.images[0]:"/category/furniture.webp"} // Assuming product has an 'images' array with at least one image URL
               
               alt={product.name}
               className="content-center w-80 h-80"
-              onError={handleImageError} // Handle image load error
+              // onError={handleImageError} // Handle image load error
             />
           </div>
 
