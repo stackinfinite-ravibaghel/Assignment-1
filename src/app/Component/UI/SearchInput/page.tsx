@@ -12,7 +12,7 @@ export default function SearchInput() {
         className="bg-white w-0 lg:w-fit xl:w-min  outline-none text-sm flex-1"
         />
         
-      <IoSearch className="text-gray-400 m-2" />
+      <IoSearch className="text-gray-600 m-2" />
     </div>
   );
 }
