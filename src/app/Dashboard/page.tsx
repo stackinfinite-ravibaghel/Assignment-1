@@ -1,6 +1,5 @@
 "use client";
 import Category from "./Category/page";
-import ProductView from "./ProductView/page";
 import ProtectedRoute from "../ProtectedRoute/page";
 import { useEffect, useState } from "react";
 import {
@@ -8,18 +7,27 @@ import {
   fetchDefaultProducts,
   fetchProductbyid,
 } from "../Services/page";
-import Product from "./ProductView/Product/page";
+import Product from "./Product/page";
+import { useRouter } from "next/navigation";
+
 
 export default function Dashboard() {
+
+  const Router = useRouter();
+
   const [categories, setCategories] = useState<any[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
     null
   );
 
+  const [products, setProducts] = useState<any[]>([]);
+
+  // Fetch Category
   const fetchData = async () => {
     try {
       const categoriesData = await fetchCategories();
       setCategories(categoriesData);
+      // console.log(categoriesData);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -27,38 +35,32 @@ export default function Dashboard() {
   useEffect(() => {
     fetchData();
   }, []);
+
   const handleCategoryClick = (categoryId: any) => {
     setSelectedCategoryId(categoryId);
     console.log("Clicked category ID:", categoryId);
   };
 
-  const [products, setProducts] = useState<any[]>([]); // State to hold products
+  const handleCart = (categoryId :any) => {
+    console.log("Add to cart : ",categoryId)
+    Router.push('/Cart', categoryId)
+  }
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const productResponse = await fetchProducts();
-  //       setProducts(productResponse.products); // Assuming response.data has a 'products' array
-  //       console.log(selectedCategoryId)
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
+  // Fetch Product by id or default
   useEffect(() => {
     const _fetchData = async () => {
       try {
         if (selectedCategoryId) {
+          // Fetch products Id
           const productResponse = await fetchProductbyid(selectedCategoryId);
           setProducts(productResponse.products);
+          console.log("Fetch by Category ID :" ,productResponse)
         } else {
           // Fetch default products when selectedCategoryId is null or default
           const defaultProductResponse = await fetchDefaultProducts();
           // Adjust fetchProducts to handle default case
           setProducts(defaultProductResponse.products);
+          console.log("Fetch by Default :" ,defaultProductResponse)
         }
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -77,7 +79,8 @@ export default function Dashboard() {
           handleCategoryClick={handleCategoryClick}
         />
         <div className="w-ful">
-          <Product products={products} />
+          <Product products={products} 
+          handleCart={handleCart}/>
         </div>
       </div>
     </main>

@@ -22,7 +22,7 @@ export default function Header() {
 
   const handleCart = (e: any) => {
     e.preventDefault();
-    router.push("CartList");
+    router.push("Cart");
   };
 
   

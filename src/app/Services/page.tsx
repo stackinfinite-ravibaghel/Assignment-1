@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://192.168.1.10:8001/api'; 
+const apiUrl = 'http://192.168.1.12:8001/api'; 
 // Base URL for your APIs
 
 // Function to handle login

@@ -1,8 +1,7 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { fetchCategories } from "../../Services/page";
-import Product from '../ProductView/page';
+
 
 const Category: React.FC = ({categories,handleCategoryClick} : any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
