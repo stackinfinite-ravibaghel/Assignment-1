@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://192.168.1.10:8001/api'; 
+const apiUrl = 'http://192.168.1.5:8001/api'; 
 // Base URL for your APIs
 
 // Function to handle login
@@ -57,6 +57,39 @@ export const fetchCategories = async () => {
     // console.log(response.data);
   } catch (error) {
     console.error("Error fetching categories:", error);
+    throw error; // Throw error to be handled by the caller
+  }
+};
+export const fetchCartsList = async (userId : any) => {
+  try {
+    const response = await axios.get(`${apiUrl}/carts/products/${userId}`);
+    return response.data; // Assuming response.data is an array of products
+    // console.log(response.data);
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error; // Throw error to be handled by the caller
+  }
+};
+// Function to  Add Product to Cart
+export const addProductToCart = async (productId : any,userId : any) => {
+  try {
+    const response = await axios.post(`${apiUrl}/carts/add/${productId}`,{userId:userId,quantity:1});
+    return response.data; // Assuming response.data is an array of products
+    // console.log(response.data);
+  } catch (error) {
+    console.error("Error - Add Product to cart :", error);
+    throw error; // Throw error to be handled by the caller
+  }
+};
+
+// Function to  Add Product to Cart
+export const deleteProductToCart = async (productId : any) => {
+  try {
+    const response = await axios.get(`${apiUrl}/carts/delete/?productId=${productId}`,);
+    return response.data; // Assuming response.data is an array of products
+    // console.log(response.data);
+  } catch (error) {
+    console.error("Error - Delete Product to cart :", error);
     throw error; // Throw error to be handled by the caller
   }
 };
