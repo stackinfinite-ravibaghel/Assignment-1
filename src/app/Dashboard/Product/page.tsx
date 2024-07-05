@@ -1,13 +1,7 @@
-"use client"
-import { useRouter } from "next/navigation";
 
-const Product: React.FC = ({products, handleCart} : any ) => {
-  const router = useRouter();
 
-  const handleSubmit = (productId: string) => {
-    router.push(`/Detail`);
-    // router.push(`/detail/${productId}`); 
-  };
+const Product: React.FC = ({products, cartList, handleCart, handleProductDetails} : any ) => {
+
 
   const handleImageError = (e: any) => {
     e.currentTarget.src = "/no-photo.png";
@@ -20,7 +14,7 @@ const Product: React.FC = ({products, handleCart} : any ) => {
           key={product._id}
           className="min-w-screen bg-white   shadow-lg shadow-slate-500 py-2 px-2 cursor-pointer"
         >
-          <div className="flex justify-center" onClick={() => handleSubmit(product._id)}>
+          <div className="flex justify-center" onClick={() => handleProductDetails(product.name,product.images,product.price,product._id)}>
 
             <img
               src={product.images[0]?product.images[0]:"/no-photo.png"} 
@@ -31,7 +25,7 @@ const Product: React.FC = ({products, handleCart} : any ) => {
           </div>
 
           <div className="text-center font-bold mt-5 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl" 
-          onClick={() => handleSubmit(product._id)}>
+          onClick={() => handleProductDetails(product._id)}>
             {product.name}
           </div>
 
