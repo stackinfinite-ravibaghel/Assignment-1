@@ -1,7 +1,11 @@
 
+const Product: React.FC = ({products, cartList, handleAddCart, handleDeleteCart, handleProductDetails} : any ) => {
 
-const Product: React.FC = ({products, cartList, handleCart, handleProductDetails} : any ) => {
 
+  // Function to check if a product is in the cart
+  const isInCart = (productId: string): boolean => {
+    return cartList.some(item => item.productId === productId);
+  };
 
   const handleImageError = (e: any) => {
     e.currentTarget.src = "/no-photo.png";
@@ -38,9 +42,23 @@ const Product: React.FC = ({products, cartList, handleCart, handleProductDetails
           </div>
 
           <div className="flex justify-center mt-5">
-            <div className="border-2 border-red-400 rounded-full p-2 md:px-4 lg:px-6 xl:px-8 font-semibold hover:bg-red-400 text-center w-40 xl:w-60 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl" onClick={() => handleCart(product._id)}>
-              Add to Cart
-            </div>
+            
+              {isInCart(product._id) ? (
+              <div
+                className="border-2 border-red-400 rounded-full p-2 md:px-4 lg:px-6 xl:px-8 font-semibold hover:bg-red-400 text-center w-40 xl:w-60 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl"
+                onClick={() => handleDeleteCart(product._id)}
+              >
+                Remove from Cart
+              </div>
+            ) : (
+              <div
+                className="border-2 border-red-400 rounded-full p-2 md:px-4 lg:px-6 xl:px-8 font-semibold hover:bg-red-400 text-center w-40 xl:w-60 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl"
+                onClick={() => handleAddCart(product._id)}
+              >
+                Add to Cart
+              </div>
+            )}
+          
           </div>
         </div>
       ))}

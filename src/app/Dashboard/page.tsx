@@ -6,6 +6,7 @@ import Category from "./Category/page";
 import Product from "./Product/page";
 import {
   addProductToCart,
+  deleteProductToCart,
   fetchCartsList,
   fetchCategories,
   fetchDefaultProducts,
@@ -14,18 +15,21 @@ import {
 import Cookies from "universal-cookie";
 
 export default function Dashboard() {
-  const cookies = new Cookies();
+
   const Router = useRouter();
+
+  const cookies = new Cookies();
   const userId = cookies.get("userId");
+  
   const [categories, setCategories] = useState<any[]>([]);
   const [cartList, setCartList] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
     null
-  );
+    );
 
-  const [products, setProducts] = useState<any[]>([]);
 
-  // Fetch Category
+  // Fetch CategoryData
   const fetchData = async () => {
     try {
       const categoriesData = await fetchCategories();
@@ -36,11 +40,21 @@ export default function Dashboard() {
     }
   };
 
-  // Fetch Category
+
+
+  // Category
+  const handleCategoryClick = (categoryId: any) => {
+    setSelectedCategoryId(categoryId);
+    console.log("Clicked category ID:", categoryId);
+  };
+
+
+
+  // Fetch CartData
   const fetchCartsData = async () => {
     try {
       const cartsList = await fetchCartsList(userId);
-      console.log(cartsList.carts);
+      console.log("Cart Array :", cartsList.carts);
       //productId
       setCartList(cartsList.carts);
     } catch (error) {
@@ -52,19 +66,28 @@ export default function Dashboard() {
     fetchCartsData();
   }, []);
 
-  // Category
-  const handleCategoryClick = (categoryId: any) => {
-    setSelectedCategoryId(categoryId);
-    console.log("Clicked category ID:", categoryId);
-  };
+  
 
   // Product
-  const handleCart = async (productId: any) => {
+  const handleAddCart = async (productId: any) => {
     console.log("Add to cart : ", productId, userId);
     // Router.push('/Cart', categoryId)
     try {
       const res = await addProductToCart(productId, userId);
+
       console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteCart = async (productId: any) => {
+    console.log("Delete From cart : ", productId, userId);
+    // Router.push('/Cart', categoryId)
+    try {
+      const res = await deleteProductToCart(productId, userId);
+
+      console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -92,13 +115,13 @@ export default function Dashboard() {
           // Fetch products Id
           const productResponse = await fetchProductbyid(selectedCategoryId);
           setProducts(productResponse.products);
-          console.log("Fetch by Category ID :", productResponse);
+          // console.log("Fetch by Category ID :", productResponse);
         } else {
           // Fetch default products when selectedCategoryId is null or default
           const defaultProductResponse = await fetchDefaultProducts();
           // Adjust fetchProducts to handle default case
           setProducts(defaultProductResponse.products);
-          console.log("Fetch by Default :", defaultProductResponse);
+          // console.log("Fetch by Default :", defaultProductResponse);
         }
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -119,7 +142,8 @@ export default function Dashboard() {
         <div className="w-ful">
           <Product
             products={products}
-            handleCart={handleCart}
+            handleAddCart={handleAddCart}
+            handleDeleteCart={handleDeleteCart}
             handleProductDetails={handleProductDetails}
             cartList={cartList}
           />

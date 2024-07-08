@@ -9,6 +9,8 @@ import { CgLogOut } from "react-icons/cg";
 import Logo from "../Logo/page";
 import SearchInput from "../SearchInput/page";
 
+
+
 export default function Header() {
   const router = useRouter();
   const cookies = new Cookies();
@@ -20,7 +22,7 @@ export default function Header() {
     router.push("/");
   };
 
-  const handleCart = (e: any) => {
+  const openCartSection = (e: any) => {
     e.preventDefault();
     router.push("Cart");
   };
@@ -29,6 +31,7 @@ export default function Header() {
 
   return (
     <div className=" w-full flex justify-between items-center p-5 bg-red-300">
+      
       <Logo />
       <SearchInput />
       <div className="flex">
@@ -37,7 +40,7 @@ export default function Header() {
             <a
               href="#"
               className="border-2 border-white rounded-full lg:px-5 xl:px-5 p-4 mx-2 bg-white static"
-              onClick={handleCart}
+              onClick={openCartSection}
             >
               <TbShoppingCart />
             </a>
