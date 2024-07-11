@@ -39,7 +39,7 @@ const Category: React.FC = ({categories,handleCategoryClick} : any) => {
             onClick={() => handleCategoryClick(category._id)}
           >
             <img
-              src={category.image} // Assuming each category object has an 'image' field
+              src={category.image} 
               alt={category.name}
               className="w-fit h-12 object-cover rounded-md select-none"
             />

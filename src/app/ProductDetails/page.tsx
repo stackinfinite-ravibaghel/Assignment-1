@@ -1,14 +1,14 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { FaHeart , FaRegHeart } from "react-icons/fa";
+import toast from "react-hot-toast";
+import Cookies from "universal-cookie";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import {
-  addProductToCart,
-  deleteProductToCart
-} from "../Services/page";
+import { addProductToCart, addProductToWishList } from "../Services/page";
 
 export default function ProductDetails() {
-
+  const cookies = new Cookies();
+  const userId = cookies.get("userId");
 
   const searchParams = useSearchParams();
 
@@ -17,36 +17,30 @@ export default function ProductDetails() {
   const ProductPrice = searchParams.get("price");
   const getProductId = searchParams.get("productid");
 
-  const [productId, setProductId] = useState();
-  const [responseCart , setResponseCart] = useState();
+  // Add Product to Cart
+  const handleAddProductToCart = async (productId: any) => {
+    console.log("Add to cart : ", productId, userId);
+    // Router.push('/Cart', categoryId)
+    try {
+      const res = await addProductToCart(productId, userId);
+      toast.success("Add to Cart successful.");
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const handleCart = (passProductId : any) => {
-    setProductId(passProductId);
-  } 
-
-  // Fetch Product by id or default
-  useEffect(() => {
-    const _fetchData = async () => {
-      try {
-        if (productId) {
-          // Fetch products Id
-          const addCartResponse = await addProductToCart(productId);
-          setResponseCart(addCartResponse);
-          console.log("Add Product to Cart :" ,addCartResponse)
-        } else {
-          // Fetch default products when selectedCategoryId is null or default
-          const deleteProductResponse = await deleteProductToCart(productId);
-          // Adjust fetchProducts to handle default case
-          setResponseCart(deleteProductResponse);
-          console.log("Delete Product to Cart :" ,deleteProductResponse)
-        }
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    _fetchData();
-  }, [productId]); // Fetch data again when selectedProductId changes
+  // Add Product To WishList
+  const handleAddProductToWishList = async (productId: any) => {
+    // console.log("Add to WishList : ", productId);
+    try {
+      const res = await addProductToWishList(productId, userId);
+      toast.success("Add to WishList successful.");
+      // console.log("Product Added to WishList", res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="w-full min-h-screen bg-[#fcebfc] p-2">
@@ -104,9 +98,11 @@ export default function ProductDetails() {
         </div>
         {/* Product Details Section */}
         <div className="w-full sm:w-1/2 flex flex-col justify-between p-1 relative">
-          
           {/* Wish List option */}
-          <div className=" absolute right-2 top-2  ">
+          <div
+            className=" absolute right-2 top-2  "
+            onClick={() => handleAddProductToWishList(getProductId)}
+          >
             <FaRegHeart className="w-8 h-8" />
           </div>
 
@@ -183,10 +179,9 @@ export default function ProductDetails() {
           <div className="flex justify-center mt-2">
             <div
               className="border-2 border-red-400 rounded-full p-2 md:px-4 lg:px-6 xl:px-8 w-full hover:bg-red-400 text-center font-semibold text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl"
-              onClick={() => handleCart(getProductId)}
+              onClick={() => handleAddProductToCart(getProductId)}
             >
-              {responseCart?("Remove cart"):("Add to Cart")}
-              {/* Add to Cart */}
+              Add to Cart
             </div>
           </div>
         </div>
