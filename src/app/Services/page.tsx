@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base URL for your APIs
-const apiUrl = 'http://192.168.1.11:8001/api'; 
+const apiUrl = 'http://192.168.1.3:8001/api'; 
 
 // Function to handle login
 export const login = async (email: string, password: string) => {
@@ -32,7 +32,6 @@ export const fetchWishList = async (userId : any) => {
     // console.log(responseWish.data);
     return responseWish.data; 
   } catch (error) {
-    console.log(userId);
     console.error("Error fetching Wish:", error);
     throw error; 
   }
@@ -108,8 +107,8 @@ export const fetchProductbyid = async (productId :any) => {
 export const fetchCartsList = async (userId : any) => {
   try {
     const response = await axios.get(`${apiUrl}/carts/products/${userId}`);
+    // console.log(response.data);
     return response.data; // Assuming response.data is an array of products
-    console.log(response.data);
   } catch (error) {
     console.error("Error fetching categories:", error);
     throw error; // Throw error to be handled by the caller
