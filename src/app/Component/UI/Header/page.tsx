@@ -3,10 +3,7 @@ import { useRouter } from "next/navigation";
 import Cookies from "universal-cookie";
 import { useEffect, useState } from "react";
 
-import Link from "next/link";
-
 import Logo from "../Logo/page";
-import SearchInput from "../SearchInput/page";
 
 import { IoSearch } from "react-icons/io5";
 import { CgLogOut } from "react-icons/cg";
@@ -68,13 +65,11 @@ export default function Header() {
     <div className=" w-full flex justify-between items-center px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12 py-5  bg-red-300">
       <Logo />
 
-      {/* <SearchInput /> */}
       <div className="flex ">
         <div className="flex justify-center ">
           <a
             href="#"
             className="border-2 border-white rounded-full p-3 bg-white static"
-            // onClick={openSearchModal}
             onClick={() => openModal()}
           >
             <IoSearch />

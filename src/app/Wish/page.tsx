@@ -3,43 +3,43 @@ import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import toast from "react-hot-toast";
 
+import { useAppDispatch } from "@/redux/hook";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { setWishList } from "@/redux/features/wishlistSlice";
+
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 import {
   fetchWishList,
   addProductToCart,
   removeProductToWishList,
 } from "../Services/page";
-import { useAppDispatch } from "@/redux/hook";
-import {  useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { setWishList } from "@/redux/features/wishlistSlice";
 
 export default function Wish() {
   const cookies = new Cookies();
   const userId = cookies.get("userId");
-  const dispatch = useAppDispatch()
-  const _wishlist = useSelector((state: RootState) => state.wish.wishList)
-  // const [wishList, setWishList] = useState<any[]>([]);
-  
-    // Fetch Wish List
-    const fetchWishListData = async () => {
-      try {
-        const responseWishList = await fetchWishList(userId);
-        (dispatch(setWishList(responseWishList.wishList.products)));
-        // console.log("WISH List :", responseWishList.wishList.products);
-      } catch (error) {
-        // console.log(userId);
-        console.error("Error fetching WishList :", error);
-      }
-    };
-    useEffect(() => {
-      fetchWishListData();
-    }, []);
-console.log(_wishlist);
 
-    // Add to CartRiDeleteBin6Line
+  const dispatch = useAppDispatch();
+  const _wishlist = useSelector((state: RootState) => state.wish.wishList);
+
+  // Fetch Wish List
+  const fetchWishListData = async () => {
+    try {
+      const responseWishList = await fetchWishList(userId);
+      dispatch(setWishList(responseWishList.wishList.products));
+      // console.log("WISH List :", responseWishList.wishList.products);
+    } catch (error) {
+      // console.log(userId);
+      console.error("Error fetching WishList :", error);
+    }
+  };
+  useEffect(() => {
+    fetchWishListData();
+  }, []);
+  console.log(_wishlist);
+
+  // Add to CartRiDeleteBin6Line
   const handleAddToCart = async (ProductId: any) => {
     console.log("Add to cart : ", ProductId);
     try {
@@ -63,8 +63,6 @@ console.log(_wishlist);
     }
   };
 
-
-  RiDeleteBin6Line
   return (
     <div className="w-full min-h-screen bg-[#fcebfc] p-2  flex flex-col gap-2">
       {_wishlist.map((List: any) => (
@@ -132,7 +130,6 @@ console.log(_wishlist);
 
             {/* Product Name */}
             <div className=" font-bold text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl select-none mt-2">
-              {/* Slim Fit Casual Shirt RiDeleteBin6Line*/}
               {List.name}
               {/* Product Name */}
             </div>

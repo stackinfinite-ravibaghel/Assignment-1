@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Cookies from "universal-cookie";
 
-import ProtectedRoute from "../ProtectedRoute/page";
-
 import Category from "./Category/page";
 import Product from "./Product/page";
 import Paginationcom from "./PaginationCom/page";

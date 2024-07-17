@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Logo from "../Logo/page"
 
 import { FaFacebookF, FaLinkedinIn, FaGoogle } from "react-icons/fa";

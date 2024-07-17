@@ -21,11 +21,11 @@ import { login } from "../../Services/page";
 const Forms: React.FC = () => {
   const router = useRouter();
   const cookies = new Cookies();
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Initial state is false
+  const [isAuthenticated, setIsAuthenticated] = useState(false); 
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false); // State for showing the modal
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false); 
 
   const openModal = () => {
     setShowForgotPasswordModal(true);
