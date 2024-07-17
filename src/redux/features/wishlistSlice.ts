@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 // Define a type for the slice state
-interface IWishList {
+interface IWishList { 
   wishList: [];
 }
 

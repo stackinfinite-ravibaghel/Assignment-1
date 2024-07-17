@@ -49,7 +49,7 @@ export default function cart() {
       setCartList(responseCartsItem.carts);
       setTotalPrice(responseCartsItem.totalPrice);
       setLoading(false);
-      // console.log("Carts Item :", responseCartsItem);
+      console.log("Carts Item :", responseCartsItem , userId);
     } catch (error) {
       console.error("Error fetching products:", error);
       setError("Errorfetching cart items. Please try again Later.")
