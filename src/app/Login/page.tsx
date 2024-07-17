@@ -1,16 +1,9 @@
 "use client";
-import { useRouter } from "next/navigation";
 import Logo from "../Component/UI/Logo/page";
 import Forms from "./Forms/page";
 import Link from "next/link";
 
 export default function Home() {
-  const router = useRouter();
-
-  const handleSubmit = () => {
-    console.log("Hello");
-  };
-
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen p-2 md:py-5 lg:py-10 xl:py-15 2xl:py-20 md:px-20 lg:px-32 xl:px-52 2xl:px-72 bg-gray-100">
       <div className="flex w-full h-full flex-col sm:flex-row ">
@@ -19,8 +12,6 @@ export default function Home() {
             <Logo />
           </div>
           <div className=" px-2 h-full flex justify-center items-center py-8">
-            {/* <Logo /> */}
-            {/* Hey */}
             <Forms />
           </div>
         </div>
@@ -39,13 +30,12 @@ export default function Home() {
 
             {/* Submit button */}
             <div className="flex items-center justify-center">
-              {/* <button
+              <Link
+                href={"/SignUp"}
                 className="bg-white text-green-500 border border-black rounded-lg hover:bg-green-500 hover:text-white font-bold py-2  px-6  focus:outline-none focus:shadow-outline"
-                onClick={() => router.push("SignUp")}
               >
                 Sign Up
-              </button> */}
-              <Link href={'/SignUp'} className="bg-white text-green-500 border border-black rounded-lg hover:bg-green-500 hover:text-white font-bold py-2  px-6  focus:outline-none focus:shadow-outline">Sign Up</Link>
+              </Link>
             </div>
             {/* Submit button */}
           </div>
@@ -55,6 +45,3 @@ export default function Home() {
     </div>
   );
 }
-
-
-

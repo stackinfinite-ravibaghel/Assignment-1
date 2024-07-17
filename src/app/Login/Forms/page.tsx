@@ -13,7 +13,6 @@ import {
   FaFacebookF,
   FaLinkedinIn,
   FaGoogle,
-  FaRegEnvelope,
 } from "react-icons/fa";
 
 import { login } from "../../Services/page";
@@ -21,11 +20,11 @@ import { login } from "../../Services/page";
 const Forms: React.FC = () => {
   const router = useRouter();
   const cookies = new Cookies();
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Initial state is false
+  const [isAuthenticated, setIsAuthenticated] = useState(false); 
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false); // State for showing the modal
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false); 
 
   const openModal = () => {
     setShowForgotPasswordModal(true);
@@ -75,8 +74,8 @@ const Forms: React.FC = () => {
   // Function to handle forgot password submission
   const handleForgotPassword = async (email: string) => {
     try {
-      // Implement your forgot password logic here, e.g., send a reset link
       toast.success("Password reset instructions sent to your email.");
+      
       console.log("Forgot Password successful for email:", email);
       // Close the modal after handling
       setShowForgotPasswordModal(false);
