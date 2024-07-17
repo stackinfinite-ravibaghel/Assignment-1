@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Cookies from "universal-cookie";
 
-import ProtectedRoute from "../ProtectedRoute/page";
-
 import Category from "./Category/page";
 import Product from "./Product/page";
 import Paginationcom from "./PaginationCom/page";
@@ -20,7 +18,6 @@ import {
   fetchProductbyid,
   addProductToWishList,
 } from "../Services/page";
-
 
 export default function Dashboard() {
   const Router = useRouter();
@@ -84,27 +81,36 @@ export default function Dashboard() {
     }
   };
 
-    // Add Product To WishList
-    const handleAddProductToWishList = async (productId: any) => {
-      // console.log("Add to WishList : ", productId);
-      try {
-        const res = await addProductToWishList(productId, userId);
-        toast.success("Add to WishList successful.");
-        // console.log("Product Added to WishList", res);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // Add Product To WishList
+  const handleAddProductToWishList = async (productId: any) => {
+    // console.log("Add to WishList : ", productId);
+    try {
+      const res = await addProductToWishList(productId, userId);
+      toast.success("Add to WishList successful.");
+      // console.log("Product Added to WishList", res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-
-
-  const handleIncreaseProductQuantity = async (productId: any, quantity  : any) => {
-    
-    console.log("Increase Product Quantity From cart : ", productId, userId , quantity);
+  const handleIncreaseProductQuantity = async (
+    productId: any,
+    quantity: any
+  ) => {
+    console.log(
+      "Increase Product Quantity From cart : ",
+      productId,
+      userId,
+      quantity
+    );
 
     try {
-      const resInCart = await increaseProductToCart(productId, userId, quantity );
-      
+      const resInCart = await increaseProductToCart(
+        productId,
+        userId,
+        quantity
+      );
+
       console.log(resInCart.data);
     } catch (error) {
       console.log(error);
@@ -122,7 +128,6 @@ export default function Dashboard() {
       console.log(error);
     }
   };
-
 
   const handleProductDetails = (
     name: string,
@@ -153,7 +158,6 @@ export default function Dashboard() {
         // Adjust fetchProducts to handle default case
         // setProducts(productResponse.products);
         // console.log("Fetch by Default :", productResponse);
-
       }
       setProducts(productResponse.products);
       setTotalPages(productResponse.pagination.totalPages);
@@ -198,10 +202,7 @@ export default function Dashboard() {
     console.log("SetCurrentPage ", currentPage);
   };
 
-  
-
   return (
-    // <ProtectedRoute>
     <main className="flex min-h-screen flex-col items-center justify-between w-full">
       <div className="w-full">
         <Category
@@ -226,10 +227,8 @@ export default function Dashboard() {
           currentPage={currentPage}
           totalProducts={totalProducts}
           handlePaginationChange={handlePaginationChange}
-          
         />
       </div>
     </main>
-    // </ProtectedRoute>
   );
 }

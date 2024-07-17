@@ -3,10 +3,7 @@ import { useRouter } from "next/navigation";
 import Cookies from "universal-cookie";
 import { useEffect, useState } from "react";
 
-import Link from "next/link";
-
 import Logo from "../Logo/page";
-import SearchInput from "../SearchInput/page";
 
 import { IoSearch } from "react-icons/io5";
 import { CgLogOut } from "react-icons/cg";
@@ -17,13 +14,14 @@ import { fetchCartsList } from "../../../Services/page";
 
 export default function Header() {
   const [cartList, setCartList] = useState<any[]>([]);
+
   const [showSearchModal, setShowSearchModal] = useState(false); 
+
   const router = useRouter();
   const cookies = new Cookies();
   const userId = cookies.get("userId");
 
   
-
   const openModal = () => {
     setShowSearchModal(true);
   };
@@ -68,12 +66,12 @@ export default function Header() {
     <div className=" w-full flex justify-between items-center px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12 py-5  bg-red-300">
       <Logo />
   
-      {/* <SearchInput /> */}
       <div className="flex ">
         <div className="flex justify-center">
           <a href="#" className="border-2 border-white rounded-full p-3 bg-white static" onClick={openModal}>
             <IoSearch />
           </a>
+          {/* Search Modal */}
           {showSearchModal && (
             <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-500 bg-opacity-50 z-50" onClick={closeModal}>
               <div className="bg-white w-full max-w-md p-5 rounded-lg shadow-lg">
@@ -101,7 +99,6 @@ export default function Header() {
                     type="button"
                     className="bg-green-500 text-white border border-black rounded-lg hover:bg-white hover:text-green-500 font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
                     onClick={() => {
-                      // Perform search functionality here
                       closeModal();
                     }}
                   >

@@ -3,7 +3,6 @@ const Product: React.FC = ({
   products,
   cartList,
   handleAddCart,
-  handleDeleteCart,
   handleProductDetails,
   handleAddProductToWishList,
 }: any) => {

@@ -9,9 +9,6 @@ import "./globals.css";
 import Header from "./Component/UI/Header/page";
 import Footer from "./Component/UI/Footer/page";
 
-import { Provider } from "react-redux";
-import { store } from "@/redux/store";
-
 const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata: Metadata = {
@@ -36,7 +33,7 @@ export default function RootLayout({
         {/* Condition for display Header */}
         {display.includes(pathname) ? null : <Header />}
         <Toaster position="bottom-center" />
-        <Provider store={store()}>{children}</Provider>
+        {children}
 
         {/* Condition for display Footer */}
         {display.includes(pathname) ? null : <Footer />}
