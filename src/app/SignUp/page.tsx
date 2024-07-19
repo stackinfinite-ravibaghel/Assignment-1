@@ -15,12 +15,14 @@ import { IoMdEye } from "react-icons/io";
 import { IoEyeOff } from "react-icons/io5";
 import Logo from "../Component/UI/Logo/page";
 import Link from "next/link";
-
+import Cookies from "universal-cookie";
 import { signup } from "../Services/page";
 
 // SignUp component
 const SignUp: React.FC = () => {
   const router = useRouter();
+  const cookies = new Cookies();
+
   const [showPassword, setShowPassword] = useState(false);
 
   // Function to toggle password visibility
@@ -58,10 +60,15 @@ const SignUp: React.FC = () => {
       // Make POST request to sign-up API
       const signupResponse = await signup(fullName , email , password)
 
-      // Redirect to Dashboard upon successful signup
+      const { _id } = signupResponse.data.user[0];
+      cookies.set("loggedin", true);
+      cookies.set("userId", _id);
+
       router.push("/Dashboard");
+
       toast.success("Sign Up successful.");
-      console.log("Sign Up successful:", signupResponse);
+
+      // console.log("Sign Up successful:", signupResponse);
     } catch (error) {
       toast.error("Failed to sign up. Please check your details.");
       console.error("Sign Up failed:", error);

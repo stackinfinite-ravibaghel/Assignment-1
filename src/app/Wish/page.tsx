@@ -57,7 +57,7 @@ export default function Wish() {
     }
   };
 
-  RiDeleteBin6Line;
+  
   return (
     <div className="w-full min-h-screen bg-[#fcebfc] p-2  flex flex-col gap-2">
       {wishList.map((List: any) => (

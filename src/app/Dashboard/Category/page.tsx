@@ -1,10 +1,23 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
+interface CategoryProps {
+  categories: any[];
+  handleCategoryClick: (categoryId: string) => Promise<any>;
+}
 
-const Category: React.FC = ({categories,handleCategoryClick} : any) => {
+const Category: React.FC<CategoryProps> = ({
+  categories,
+  handleCategoryClick,
+}: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
+    null
+  );
+
+
   const scrollLeft = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
@@ -17,11 +30,22 @@ const Category: React.FC = ({categories,handleCategoryClick} : any) => {
     }
   };
 
+  const handleCategory = async (categoryId: string) => {
+    try {
+      await handleCategoryClick(categoryId);
+
+      setSelectedCategoryId(categoryId);
+
+    } catch (error: any) {
+      console.error("Error handling category click:", error);
+    }
+  };
+
 
   return (
     <div className="relative bg-slate-100">
       <button
-        onClick={scrollLeft}   
+        onClick={scrollLeft}
         className="absolute left-1  top-1/2 transform -translate-y-1/2 bg-gray-200 p-2  rounded-full shadow-md hover:bg-green-500 z-10 "
       >
         <FiChevronLeft size={24} />
@@ -33,13 +57,16 @@ const Category: React.FC = ({categories,handleCategoryClick} : any) => {
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {categories.map((category: any) => (
+
           <div
             key={category.id}
-            className="flex-shrink-0 text-center flex flex-col place-items-center p-2 bg-white rounded-lg "
-            onClick={() => handleCategoryClick(category._id)}
+            onClick={() => handleCategory(category._id)}
+            className={`flex-shrink-0 flex flex-col place-items-center text-center p-2 rounded-lg ${
+              selectedCategoryId === category._id ? "bg-red-300" : " bg-white"
+            }`}
           >
             <img
-              src={category.image} 
+              src={category.image}
               alt={category.name}
               className="w-fit h-12 object-cover rounded-md select-none"
             />
@@ -62,16 +89,3 @@ const Category: React.FC = ({categories,handleCategoryClick} : any) => {
 };
 
 export default Category;
-
-
-
-
-
-
-
-
-
-
-
-
-
