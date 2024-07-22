@@ -141,7 +141,8 @@ const Product: React.FC = ({
                 product.name,
                 product.images,
                 product.price,
-                product._id
+                product._id,
+                product.outOfStock
               )
             }
           >

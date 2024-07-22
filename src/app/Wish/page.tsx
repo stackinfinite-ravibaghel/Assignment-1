@@ -5,11 +5,7 @@ import toast from "react-hot-toast";
 
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-import {
-  fetchWishList,
-  addProductToCart,
-  removeProductToWishList,
-} from "../Services/page";
+import { fetchWishList, addProductToCart, removeProductToWishList } from "../ServerAction/action";
 
 export default function Wish() {
   const cookies = new Cookies();
@@ -22,24 +18,23 @@ export default function Wish() {
     try {
       const responseWishList = await fetchWishList(userId);
       setWishList(responseWishList.wishList.products);
-      console.log("Wish List :", responseWishList.wishList.products);
+      // console.log("fetchWishListData :", responseWishList.wishList.products);
     } catch (error) {
-      // console.log(userId);
       console.error("Error fetching WishList :", error);
     }
   };
   useEffect(() => {
     fetchWishListData();
   }, []);
-  console.log(wishList);
 
-  // Add to CartRiDeleteBin6Line
+
+  // Add Product to Cart
   const handleAddToCart = async (ProductId: any) => {
     console.log("Add to cart : ", ProductId);
     try {
-      const res = await addProductToCart(ProductId, userId);
+      const responsehandleAddToCart = await addProductToCart(ProductId, userId);
       toast.success("Add to Cart successful.");
-      console.log(res);
+      // console.log(responsehandleAddToCart);
     } catch (error) {
       console.log(error);
     }
@@ -47,11 +42,11 @@ export default function Wish() {
 
   // Remove from Wishlist
   const handleRemoveProductToWishList = async (ProductId: any) => {
-    // console.log("Remove From WishList : ", ProductId);
+    console.log("Remove From WishList : ", ProductId);
     try {
-      const res = await removeProductToWishList(ProductId, userId);
+      const responsehandleRemoveProductToWishList = await removeProductToWishList(ProductId, userId);
       toast.success("successfully Remove from WishList .");
-      console.log(res);
+      // console.log(responsehandleRemoveProductToWishList);
     } catch (error) {
       console.log(error);
     }
@@ -196,7 +191,7 @@ export default function Wish() {
             <div className="flex justify-center mt-2">
               {List.outOfStock ? (
                 <button
-                  className="border-2 border-red-400 rounded-full p-2 md:px-4 lg:px-6 xl:px-8 w-full hover:bg-red-400 text-center font-semibold text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl"
+                  className="border-2 border-red-400 rounded-full p-2 md:px-4 lg:px-6 xl:px-8 w-full bg-red-400 text-center font-semibold text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl"
                   disabled
                 >
                   Out Of Stock

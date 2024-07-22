@@ -13,20 +13,13 @@ import Cookies from "universal-cookie";
 
 import { IoMdEye } from "react-icons/io";
 import { IoEyeOff } from "react-icons/io5";
-import {
-  FaFacebookF,
-  FaLinkedinIn,
-  FaGoogle,
-} from "react-icons/fa";
-
-
+import { FaFacebookF, FaLinkedinIn, FaGoogle } from "react-icons/fa";
 
 interface FormsProps {
-  handleSubmit: (formData: FormData) => Promise<{LoginResponse :any}>;
+  handleSubmit: (formData: FormData) => Promise<{ LoginResponse: any }>;
 }
 
 const Forms: React.FC<FormsProps> = ({ handleSubmit }: FormsProps) => {
-
   const router = useRouter();
   const cookies = new Cookies();
   // const userId = cookies.get("userId");
@@ -36,7 +29,7 @@ const Forms: React.FC<FormsProps> = ({ handleSubmit }: FormsProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
-  
+
   const openModal = () => {
     setShowForgotPasswordModal(true);
   };
@@ -48,7 +41,6 @@ const Forms: React.FC<FormsProps> = ({ handleSubmit }: FormsProps) => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
 
   // Define validation schema using Yup
   const validationSchema = Yup.object({
@@ -66,14 +58,23 @@ const Forms: React.FC<FormsProps> = ({ handleSubmit }: FormsProps) => {
     password: string;
   }) => {
     try {
-      const signInResponse = await handleSubmit(values); 
-      cookies.set("email", signInResponse.email);
-      cookies.set("userId", signInResponse._id);
-      console.log("Login Successful :", signInResponse);
-      setIsAuthenticated(true);
-      toast.success("Login successful.");
-      router.push(`Dashboard`);
-    } catch (error : any) {
+      const signInResponse = await handleSubmit(values);
+      if (
+        signInResponse.message &&
+        signInResponse.message === "user not found"
+      ) {
+        console.log("Login Failed: User not found");
+        toast.error("User not found. Please check your credentials.");
+      } else {
+        cookies.set("loggedin", true);
+        cookies.set("email", signInResponse.email);
+        cookies.set("userId", signInResponse._id);
+        // console.log("Login Successful :", signInResponse);
+        setIsAuthenticated(true);
+        toast.success("Login successful.");
+        router.push(`Dashboard`);
+      }
+    } catch (error: any) {
       const errorMessage =
         error.response && error.response.data && error.response.data.message
           ? error.response.data.message
@@ -81,7 +82,6 @@ const Forms: React.FC<FormsProps> = ({ handleSubmit }: FormsProps) => {
 
       toast.error(errorMessage);
       console.error("Login failed:", error);
-      
     }
   };
 

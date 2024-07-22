@@ -9,9 +9,8 @@ import {
   fetchCartsList,
   deleteProductToCart,
   increaseProductToCart,
-  decreaseProductToCart
-} from "../Services/page";
-
+  decreaseProductToCart,
+} from "../ServerAction/action";
 
 interface CartItem {
   _id: string;
@@ -26,33 +25,29 @@ interface CartItem {
   quantity: number;
 }
 
-
 export default function cart() {
   const cookies = new Cookies();
   const userId = cookies.get("userId");
 
   const [cartList, setCartList] = useState<any[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  
+
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const [quantity, setQuantity] = useState<number>(1);
 
-
-  
-
   // Fetch Carts List
   const fetchCartsData = async () => {
     try {
-      const responseCartsItem = await fetchCartsList(userId);
-      setCartList(responseCartsItem.carts);
-      setTotalPrice(responseCartsItem.totalPrice);
+      const responsefetchCartsData = await fetchCartsList(userId);
+      setCartList(responsefetchCartsData.carts);
+      setTotalPrice(responsefetchCartsData.totalPrice);
       setLoading(false);
-      console.log("Carts Item :", responseCartsItem , userId);
+      // console.log("responsefetchCartsData :", responsefetchCartsData);
     } catch (error) {
       console.error("Error fetching products:", error);
-      setError("Errorfetching cart items. Please try again Later.")
+      setError("Errorfetching cart items. Please try again Later.");
       setLoading(false);
     }
   };
@@ -61,36 +56,50 @@ export default function cart() {
   }, []);
 
   const handleDeleteCart = async (productId: any) => {
-    console.log("Delete From cart : ", productId, userId);
     try {
-      const res = await deleteProductToCart(productId, userId);
-      console.log(res.data);
+      const responseHandleDeleteCart = await deleteProductToCart(
+        productId,
+        userId
+      );
+      // console.log(responseHandleDeleteCart);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleIncreaseProductQuantity = async (productId: any, quantity  : any) => {
-    
-    console.log("Increase Product Quantity From cart : ", productId, userId , quantity);
+  const handleIncreaseProductQuantity = async (
+    productId: any,
+    quantity: any
+  ) => {
+    // console.log("Increase Product Quantity From cart : ", productId, userId , quantity);
 
     try {
-      const resInCart = await increaseProductToCart(productId, userId, quantity );
-      
-      console.log(resInCart.data);
+      const responseHandleIncreaseProductQuantity = await increaseProductToCart(
+        productId,
+        userId,
+        quantity
+      );
+
+      // console.log(responseHandleIncreaseProductQuantity);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleDecreaseProductQuantity = async (productId: any, quantity  : any) => {
-    
-    console.log("Decrease Product Quantity From cart : ", productId, userId , quantity);
+  const handleDecreaseProductQuantity = async (
+    productId: any,
+    quantity: any
+  ) => {
+    // console.log("Decrease Product Quantity From cart : ", productId, userId , quantity);
 
     try {
-      const resInCart = await decreaseProductToCart(productId, userId, quantity );
-      
-      console.log(resInCart.data);
+      const responseHandleDecreaseProductQuantity = await decreaseProductToCart(
+        productId,
+        userId,
+        quantity
+      );
+
+      // console.log(responseHandleDecreaseProductQuantity);
     } catch (error) {
       console.log(error);
     }
@@ -99,101 +108,121 @@ export default function cart() {
   return (
     <div className="min-w-min min-h-screen bg-[#fcebfc] p-2 flex flex-col sm:flex-row gap-2">
       {loading ? (
-        <p className="text-center w-full sm:w-4/6 flex min-h-screen justify-center items-center  ">Loading ...</p>
+        <p className="text-center w-full sm:w-4/6 flex min-h-screen justify-center items-center  ">
+          Loading ...
+        </p>
       ) : error ? (
         <p className="text-center text-red-500">{error}</p>
       ) : cartList.length === 0 ? (
-        <p className="text-center w-full sm:w-4/6 flex min-h-screen justify-center items-center">Your cart is empty.</p>
+        <p className="text-center w-full sm:w-4/6 flex min-h-screen justify-center items-center">
+          Your cart is empty.
+        </p>
       ) : (
-      <div className="w-full sm:w-4/6 h-fit flex flex-col gap-2 ">
-        {cartList.map((cart: any) => (
-          <div
-            key={cart.productId}
-            className="w-full shadow-lg shadow-gray-500 rounded-lg flex flex-col gap-2 bg-white p-2"
-          >
-            {/* Product View */}
-            {/* Apply Map Here */}
-            {/* Start Product Image & Description */}
-            <div className="flex gap-2">
-              <div>
-                <img
-                  // src="/shirt/tshirt.webp"
-                  src={cart.images[0]}
-                  alt="Product"
-                  className="w-80 "
-                />
-              </div>
-              <div className=" flex flex-col justify-between lg:justify-start ">
-                <div className=" font-bold select-none ">{cart.name}</div>
-                <div className="font-light lg:my-4 select-none ">
-                  Bottom-Down Collar & Placket Lorem ipsum dolor sit amet
-                  consectetur.
-                </div>
-                <div className="lg:mb-4 ">
-                  <span className="font-light pr-1 select-none">Size :</span>
-                  <span className="font-medium select-none">XL</span>
-                  <span className="font-light mx-1 select-none">/</span>
-                  <span className="font-light mr-1 select-none">Colour :</span>
-                  <span className="font-medium select-none">Marron</span>
-                </div>
+        <div className="w-full sm:w-4/6 h-fit flex flex-col gap-2 ">
+          {cartList.map((cart: any) => (
+            <div
+              key={cart.productId}
+              className="w-full shadow-lg shadow-gray-500 rounded-lg flex flex-col gap-2 bg-white p-2"
+            >
+              {/* Product View */}
+              {/* Apply Map Here */}
+              {/* Start Product Image & Description */}
+              <div className="flex gap-2">
                 <div>
-                  <span className="font-medium select-none">₹ {cart.price}</span>
-                  <span className="line-through mx-2 font-light select-none">
-                    ₹ 32,999
-                  </span>
-                  <span className="font-medium text-red-400 select-none">15% Off</span>
+                  <img
+                    // src="/shirt/tshirt.webp"
+                    src={cart.images[0]}
+                    alt="Product"
+                    className="w-80 "
+                  />
+                </div>
+                <div className=" flex flex-col justify-between lg:justify-start ">
+                  <div className=" font-bold select-none ">{cart.name}</div>
+                  <div className="font-light lg:my-4 select-none ">
+                    Bottom-Down Collar & Placket Lorem ipsum dolor sit amet
+                    consectetur.
+                  </div>
+                  <div className="lg:mb-4 ">
+                    <span className="font-light pr-1 select-none">Size :</span>
+                    <span className="font-medium select-none">XL</span>
+                    <span className="font-light mx-1 select-none">/</span>
+                    <span className="font-light mr-1 select-none">
+                      Colour :
+                    </span>
+                    <span className="font-medium select-none">Marron</span>
+                  </div>
+                  <div>
+                    <span className="font-medium select-none">
+                      ₹ {cart.price}
+                    </span>
+                    <span className="line-through mx-2 font-light select-none">
+                      ₹ 32,999
+                    </span>
+                    <span className="font-medium text-red-400 select-none">
+                      15% Off
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            {/* End Product Image & Description */}
+              {/* End Product Image & Description */}
 
-            {/* Line Start */}
-            <div className=" w-full h-0.5 mt-4 inline-block bg-gray-200" />
-            {/* line End */}
+              {/* Line Start */}
+              <div className=" w-full h-0.5 mt-4 inline-block bg-gray-200" />
+              {/* line End */}
 
-            {/* Quantity, Edit & Delete Start */}
-            <div className=" p-4  flex justify-between">
-              <div className="flex">
-                <span className=" rounded-lg border-2 bg-gray-100 w-8 h-8 flex justify-center items-center select-none"
-                // onClick={() => setQuantity(quantity - 1)} 
-                onClick={() => handleDecreaseProductQuantity(cart.productId, cart.quantity)}
-                >
-                  -
-                </span>
-                <span className=" font-semibold w-8 h-8 flex justify-center items-center  select-none">
-                  {/* {quantity} */}
-                  {cart.quantity}
-                  {/* setQuantity(cart.quantity); */}
-                </span>
-                <span
-                  className="rounded-lg border-2 bg-gray-100 w-8 h-8 flex justify-center items-center select-none"
-                  // onClick={() => setQuantity(quantity + 1)}  
-                  onClick={() => handleIncreaseProductQuantity(cart.productId, cart.quantity)}
-                >
-                  +
-                </span>
+              {/* Quantity, Edit & Delete Start */}
+              <div className=" p-4  flex justify-between">
+                <div className="flex">
+                  <span
+                    className=" rounded-lg border-2 bg-gray-100 w-8 h-8 flex justify-center items-center select-none"
+                    // onClick={() => setQuantity(quantity - 1)}
+                    onClick={() =>
+                      handleDecreaseProductQuantity(
+                        cart.productId,
+                        cart.quantity
+                      )
+                    }
+                  >
+                    -
+                  </span>
+                  <span className=" font-semibold w-8 h-8 flex justify-center items-center  select-none">
+                    {/* {quantity} */}
+                    {cart.quantity}
+                    {/* setQuantity(cart.quantity); */}
+                  </span>
+                  <span
+                    className="rounded-lg border-2 bg-gray-100 w-8 h-8 flex justify-center items-center select-none"
+                    // onClick={() => setQuantity(quantity + 1)}
+                    onClick={() =>
+                      handleIncreaseProductQuantity(
+                        cart.productId,
+                        cart.quantity
+                      )
+                    }
+                  >
+                    +
+                  </span>
+                </div>
+                <div className="flex">
+                  {/* Edit Button */}
+                  <span className="rounded-lg border-2 bg-gray-100 w-8 h-8 flex justify-center items-center ">
+                    <FaRegEdit />
+                  </span>
+                  <span className="px-2"></span>
+                  {/* Delete Button */}
+                  <span
+                    className="rounded-lg border-2 bg-gray-100 w-8 h-8 flex justify-center items-center "
+                    onClick={() => handleDeleteCart(cart.productId)}
+                  >
+                    <RiDeleteBin6Line />
+                  </span>
+                </div>
               </div>
-              <div className="flex">
-                {/* Edit Button */}
-                <span className="rounded-lg border-2 bg-gray-100 w-8 h-8 flex justify-center items-center ">
-                  <FaRegEdit />
-                </span>
-                <span className="px-2"></span>
-                {/* Delete Button */}
-                <span
-                  className="rounded-lg border-2 bg-gray-100 w-8 h-8 flex justify-center items-center "
-                  onClick={() => handleDeleteCart(cart.productId)}
-                >
-                  <RiDeleteBin6Line />
-                </span>
-              </div>
+              {/* Quantity, Edit & Delete End */}
+              {/* Product View End */}
             </div>
-            {/* Quantity, Edit & Delete End */}
-            {/* Product View End */}
-          </div>
-        ))}
-      </div>
-
+          ))}
+        </div>
       )}
 
       {/* Bill Start */}

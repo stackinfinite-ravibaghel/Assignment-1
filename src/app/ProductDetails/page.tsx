@@ -3,8 +3,8 @@ import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import Cookies from "universal-cookie";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useEffect, useState } from "react";
-import { addProductToCart, addProductToWishList } from "../Services/page";
+
+import { addProductToCart, addProductToWishList } from "../ServerAction/action";
 
 export default function ProductDetails() {
   const cookies = new Cookies();
@@ -16,10 +16,11 @@ export default function ProductDetails() {
   const ProductImage = searchParams.get("image");
   const ProductPrice = searchParams.get("price");
   const getProductId = searchParams.get("productid");
+  const getOutOfStock = searchParams.get("outOfStock");
 
   // Add Product to Cart
   const handleAddProductToCart = async (productId: any) => {
-    console.log("Add to cart : ", productId, userId);
+    console.log("Add to cart props : ", productId, userId);
     // Router.push('/Cart', categoryId)
     try {
       const res = await addProductToCart(productId, userId);
@@ -32,11 +33,11 @@ export default function ProductDetails() {
 
   // Add Product To WishList
   const handleAddProductToWishList = async (productId: any) => {
-    // console.log("Add to WishList : ", productId);
+    console.log("Add to WishList : ", productId);
     try {
       const res = await addProductToWishList(productId, userId);
       toast.success("Add to WishList successful.");
-      // console.log("Product Added to WishList", res);
+      console.log("Product Added to WishList", res);
     } catch (error) {
       console.log(error);
     }
@@ -177,12 +178,21 @@ export default function ProductDetails() {
           </div>
           {/* Add to Cart Button */}
           <div className="flex justify-center mt-2">
-            <div
-              className="border-2 border-red-400 rounded-full p-2 md:px-4 lg:px-6 xl:px-8 w-full hover:bg-red-400 text-center font-semibold text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl"
-              onClick={() => handleAddProductToCart(getProductId)}
-            >
-              Add to Cart
-            </div>
+            {getOutOfStock ? (
+              <button
+                className="border-2 border-red-400 rounded-full bg-red-400 p-2 md:px-4 lg:px-6 xl:px-8 font-semibold  text-center w-40 xl:w-60 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl"
+                disabled
+              >
+                Out of Stock
+              </button>
+            ) : (
+              <button
+                className="border-2 border-red-400 rounded-full p-2 md:px-4 lg:px-6 xl:px-8 w-full  hover:bg-red-400 text-center font-semibold text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl"
+                onClick={() => handleAddProductToCart(getProductId)}
+              >
+                Add to Cart
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -90,11 +90,12 @@ const Dashboard = () => {
     name: string,
     image: any,
     price: number,
-    id: any
+    id: any,
+    outOfStock: any
   ) => {
     // Router.push(`/ProductDetails ,${productId}`);
     Router.push(
-      `/ProductDetails?name=${name}&image=${image}&price=${price}&productid=${id}`
+      `/ProductDetails?name=${name}&image=${image}&price=${price}&productid=${id}&outOfStock=${outOfStock}`
     );
   };
 

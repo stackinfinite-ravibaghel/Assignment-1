@@ -16,7 +16,9 @@ import { IoEyeOff } from "react-icons/io5";
 import Logo from "../Component/UI/Logo/page";
 import Link from "next/link";
 import Cookies from "universal-cookie";
-import { signup } from "../Services/page";
+
+import { Signup } from "../ServerAction/action";
+// import { signup } from "../Services/page";
 
 // SignUp component
 const SignUp: React.FC = () => {
@@ -58,13 +60,13 @@ const SignUp: React.FC = () => {
 
     try {
       // Make POST request to sign-up API
-      const signupResponse = await signup(fullName , email , password)
+      const signupResponse = await Signup(fullName, email, password);
 
-      const { _id } = signupResponse.data.user[0];
+      const { _id } = signupResponse.user[0];
       cookies.set("loggedin", true);
       cookies.set("userId", _id);
 
-      router.push("/Dashboard");
+      router.push("/");
 
       toast.success("Sign Up successful.");
 
@@ -303,11 +305,16 @@ const SignUp: React.FC = () => {
 
             <div className="text-black my-3 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl flex items-center">
               <span className="text-center">Aready have an account ? </span>
-              <Link href={'/'} className="text-center font-semibold text-blue-500"> Login</Link>
+              <Link
+                href={"/"}
+                className="text-center font-semibold text-blue-500"
+              >
+                {" "}
+                Login
+              </Link>
             </div>
           </div>
         </Form>
-        
       </Formik>
     </div>
   );

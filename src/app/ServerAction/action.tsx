@@ -17,10 +17,26 @@ export const SignIn = async (e: any) => {
   });
 
   const data = await responseLogin.json();
-  // console.log("SignIn",data)
+  // console.log("SignIn", data);
   return data;
 };
 // -------------Sign In---------------------
+
+// -------------Sign Up---------------------
+export const Signup = async (name: string, email: string, password: string) => {
+  const responseSignUp = await fetch(`${apiUrl}/auth/sign-up`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, email, password }),
+  });
+
+  const data = await responseSignUp.json();
+  // console.log("SignUp",data)
+  return data;
+};
+// -------------Sign Up---------------------
 
 // -------------Category---------------------
 export const fetchCategory = async () => {
@@ -62,6 +78,17 @@ export const fetchProductbyCategoryId = async (
 };
 // -------------Product by Category Id-------------------
 
+// -------------Fetch CartList------------------
+
+export const fetchCartsList = async (userId: any) => {
+  const responseFetchCartsList = await fetch(
+    `${apiUrl}/carts/products/${userId}`
+  );
+  const data = await responseFetchCartsList.json();
+  // console.log("fetchCartsList", data);
+  return data;
+};
+// -------------Fetch CartList------------------
 
 // -------------Add Product to Cart---------------------
 export const addProductToCart = async (productId: any, userId: any) => {
@@ -80,15 +107,99 @@ export const addProductToCart = async (productId: any, userId: any) => {
   );
 
   const data = await responseAddProductToCart.json();
-  console.log("addProductToCart", data);
+  // console.log("addProductToCart", data);
   return data;
 };
 // -------------Add Product to Cart---------------------
 
+// -------------Increase Product to Cart------------------
+
+export const increaseProductToCart = async (
+  productId: any,
+  userId: string,
+  quantity: any
+) => {
+  const responseIncreaseProductToWishList = await fetch(
+    `${apiUrl}/carts/increase/${productId}`,
+    {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+      }),
+    }
+  );
+
+  const data = await responseIncreaseProductToWishList.json();
+  // console.log("increaseProductToCart", data);
+  return data;
+};
+// -------------Increase Product to Cart------------------
+
+// -------------Decrease Product to Cart------------------
+
+export const decreaseProductToCart = async (
+  productId: any,
+  userId: string,
+  quantity: any
+) => {
+  const responseDecreaseProductToWishList = await fetch(
+    `${apiUrl}/carts/decrease/${productId}`,
+    {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+      }),
+    }
+  );
+
+  const data = await responseDecreaseProductToWishList.json();
+  // console.log("decreaseProductToCart", data);
+  return data;
+};
+// -------------Decrease Product to Cart------------------
+
+// -------------Delete Product to Cart------------------
+
+export const deleteProductToCart = async (productId: any, userId: string) => {
+  const responseDeleteProductToWishList = await fetch(
+    `${apiUrl}/carts/delete/${productId}`,
+    {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+      }),
+    }
+  );
+
+  const data = await responseDeleteProductToWishList.json();
+  // console.log("deleteProductToCart", data);
+  return data;
+};
+// -------------Delete Product to Cart------------------
+
+// -------------Fetch WishList------------------
+
+export const fetchWishList = async (userId: any) => {
+  const responseFetchWishList = await fetch(`${apiUrl}/wishlist/${userId}`);
+  const data = await responseFetchWishList.json();
+  // console.log("fetchWishList", data);
+  return data;
+};
+// -------------Fetch WishList------------------
+
 // -------------Add Product to WishList------------------
 
 export const addProductToWishList = async (productId: any, userId: string) => {
-  const responseWish = await fetch(`${apiUrl}/wishlist/add`, {
+  const responseAddProductToWishList = await fetch(`${apiUrl}/wishlist/add`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -99,11 +210,37 @@ export const addProductToWishList = async (productId: any, userId: string) => {
     }),
   });
 
-  const data = await responseWish.json();
-  console.log("addProductToWishList", data);
+  const data = await responseAddProductToWishList.json();
+  // console.log("addProductToWishList", data);
   return data;
 };
 // -------------Add Product to WishList------------------
+
+// -------------Remove Product to WishList------------------
+
+export const removeProductToWishList = async (
+  productId: any,
+  userId: string
+) => {
+  const responseRemoveProductToWishList = await fetch(
+    `${apiUrl}/wishlist/remove`,
+    {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+        productId: productId,
+      }),
+    }
+  );
+
+  const data = await responseRemoveProductToWishList.json();
+  // console.log("removeProductToWishList", data);
+  return data;
+};
+// -------------Remove Product to WishList------------------
 
 //------------Product by Category Id or Default----------
 // export const fetchProductData = async (categoryId: string) => {
@@ -130,8 +267,6 @@ export const addProductToWishList = async (productId: any, userId: string) => {
 // };
 
 //------------Product by Category Id or Default----------
-
-
 
 // // -------------Product by Category Id & Page-------------------
 // export const fetchProductbyCategoryIdPage = async (
