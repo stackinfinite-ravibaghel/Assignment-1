@@ -1,7 +1,7 @@
 "use server";
 
 // Base URL for your APIs
-const apiUrl = "http://192.168.1.11:8001/api";
+const apiUrl = "http://192.168.1.2:8001/api";
 
 // -------------Sign In---------------------
 export const SignIn = async (e: any) => {
@@ -33,8 +33,8 @@ export const fetchCategory = async () => {
 // -------------Category---------------------
 
 // -------------Product---------------------
-export const fetchProduct = async () => {
-  const responseProduct = await fetch(`${apiUrl}/products`);
+export const fetchProduct = async (currentPage: any) => {
+  const responseProduct = await fetch(`${apiUrl}/products?page=${currentPage}`);
 
   const data = await responseProduct.json();
   const products = data.products;
@@ -45,10 +45,15 @@ export const fetchProduct = async () => {
 // -------------Product---------------------
 
 // -------------Product by Category Id-------------------
-export const fetchProductbyCategoryId = async (categoryId: any) => {
+export const fetchProductbyCategoryId = async (
+  categoryId: any,
+  currentPage: any
+) => {
+  // console.log("categoryId", categoryId);
+  // console.log("currentPage", currentPage);
 
   const responseCategoryIdProduct = await fetch(
-    `${apiUrl}/products/?categoryId=${categoryId}`
+    `${apiUrl}/products/?categoryId=${categoryId}&page=${currentPage}`
   );
 
   const data = await responseCategoryIdProduct.json();
@@ -57,9 +62,9 @@ export const fetchProductbyCategoryId = async (categoryId: any) => {
 };
 // -------------Product by Category Id-------------------
 
+
 // -------------Add Product to Cart---------------------
 export const addProductToCart = async (productId: any, userId: any) => {
-
   const responseAddProductToCart = await fetch(
     `${apiUrl}/carts/add/${productId}`,
     {
@@ -75,7 +80,7 @@ export const addProductToCart = async (productId: any, userId: any) => {
   );
 
   const data = await responseAddProductToCart.json();
-  console.log("addProductToCart",data)
+  console.log("addProductToCart", data);
   return data;
 };
 // -------------Add Product to Cart---------------------
@@ -83,7 +88,6 @@ export const addProductToCart = async (productId: any, userId: any) => {
 // -------------Add Product to WishList------------------
 
 export const addProductToWishList = async (productId: any, userId: string) => {
-
   const responseWish = await fetch(`${apiUrl}/wishlist/add`, {
     method: "POST",
     headers: {
@@ -96,13 +100,10 @@ export const addProductToWishList = async (productId: any, userId: string) => {
   });
 
   const data = await responseWish.json();
-  console.log("addProductToWishList",data)
+  console.log("addProductToWishList", data);
   return data;
 };
 // -------------Add Product to WishList------------------
-
-
-
 
 //------------Product by Category Id or Default----------
 // export const fetchProductData = async (categoryId: string) => {
@@ -129,3 +130,23 @@ export const addProductToWishList = async (productId: any, userId: string) => {
 // };
 
 //------------Product by Category Id or Default----------
+
+
+
+// // -------------Product by Category Id & Page-------------------
+// export const fetchProductbyCategoryIdPage = async (
+//   categoryId: any,
+//   currentPage: any
+// ) => {
+//   console.log("fetchProductbyCategoryIdpage categoryId", categoryId);
+//   console.log("fetchProductbyCategoryIdpage currentPage", currentPage);
+
+//   const responseCategoryIdProductPage = await fetch(
+//     `${apiUrl}/products/?categoryId=${categoryId}&page=${currentPage}`
+//   );
+
+//   const data = await responseCategoryIdProductPage.json();
+//   console.log("fetchProductbyCategoryIdpage", data);
+//   return data;
+// };
+// // -------------Product by Category Id & Page-------------------
