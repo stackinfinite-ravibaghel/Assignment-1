@@ -18,7 +18,6 @@ import Link from "next/link";
 import Cookies from "universal-cookie";
 
 import { Signup } from "../ServerAction/action";
-// import { signup } from "../Services/page";
 
 // SignUp component
 const SignUp: React.FC = () => {

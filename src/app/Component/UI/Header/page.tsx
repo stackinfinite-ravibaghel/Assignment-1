@@ -3,17 +3,15 @@ import { useRouter } from "next/navigation";
 import Cookies from "universal-cookie";
 import { useEffect, useState } from "react";
 
-import Link from "next/link";
-
 import Logo from "../Logo/page";
-import SearchInput from "../SearchInput/page";
 
 import { IoSearch } from "react-icons/io5";
 import { CgLogOut } from "react-icons/cg";
 import { TbShoppingCart } from "react-icons/tb";
 import { FaRegHeart } from "react-icons/fa";
 
-import { fetchCartsList } from "../../../Services/page";
+import { fetchCartsList } from "../../../ServerAction/action"
+
 
 export default function Header() {
   const [cartList, setCartList] = useState<any[]>([]);
@@ -35,6 +33,8 @@ export default function Header() {
   const handleLogout = () => {
     // Clear email cookie
     cookies.remove("email");
+    cookies.remove("userId");
+    cookies.remove("loggedin");
     // Redirect to login page
     router.push("/");
   };
@@ -68,7 +68,6 @@ export default function Header() {
     <div className=" w-full flex justify-between items-center px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12 py-5  bg-red-300">
       <Logo />
   
-      {/* <SearchInput /> */}
       <div className="flex ">
         <div className="flex justify-center">
           <a href="#" className="border-2 border-white rounded-full p-3 bg-white static" onClick={openModal}>
