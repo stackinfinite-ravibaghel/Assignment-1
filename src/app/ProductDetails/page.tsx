@@ -3,42 +3,54 @@ import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import Cookies from "universal-cookie";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { addProductToCart, addProductToWishList } from "../Services/page";
 
 export default function ProductDetails() {
   const cookies = new Cookies();
-  const userId = cookies.get("userId");
+  const userId: string | undefined = cookies.get("userId");
 
   const searchParams = useSearchParams();
 
-  const ProductName = searchParams.get("name");
-  const ProductImage = searchParams.get("image");
-  const ProductPrice = searchParams.get("price");
-  const getProductId = searchParams.get("productid");
+  const ProductName: string | null = searchParams.get("name");
+  const ProductImage: string | null = searchParams.get("image");
+  const ProductPrice: string | null = searchParams.get("price");
+  const getProductId: string | null = searchParams.get("productid");
 
   // Add Product to Cart
-  const handleAddProductToCart = async (productId: any) => {
+  const handleAddProductToCart = async (productId: string | null) => {
+
+     if (!productId || !userId) {
+      console.error("Invalid productId or userId");
+      return;
+    }
+
     console.log("Add to cart : ", productId, userId);
-    // Router.push('/Cart', categoryId)
     try {
       const res = await addProductToCart(productId, userId);
       toast.success("Add to Cart successful.");
       console.log(res);
     } catch (error) {
-      console.log(error);
+      console.log("Add to Cart failed:", error);
+      toast.error("Failed to add product to Cart.");
     }
   };
 
   // Add Product To WishList
-  const handleAddProductToWishList = async (productId: any) => {
-    // console.log("Add to WishList : ", productId);
+  const handleAddProductToWishList = async (productId: string | null) => {
+    
+    if (!productId || !userId) {
+      console.error("Invalid productId or userId");
+      return;
+    }
+
     try {
       const res = await addProductToWishList(productId, userId);
       toast.success("Add to WishList successful.");
-      // console.log("Product Added to WishList", res);
+      console.log("Product Added to WishList", res);
     } catch (error) {
-      console.log(error);
+      console.log("Add to Wishlist failed:", error);
+      toast.error("Failed to add product to Wishlist.");
     }
   };
 

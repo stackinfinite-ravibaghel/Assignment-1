@@ -1,34 +1,59 @@
-import { FaHeart , FaRegHeart } from "react-icons/fa";
-const Product: React.FC = ({
-  products,
-  cartList,
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useEffect } from "react";
+
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+
+interface ProductProps {
+  handleAddCart: (productId: string) => void;
+  handleProductDetails: (...args: any[]) => void;
+  handleAddProductToWishList: (productId: string) => void;
+}
+
+const Product: React.FC<ProductProps> = ({
+  // cartList,
   handleAddCart,
-  handleDeleteCart,
   handleProductDetails,
   handleAddProductToWishList,
 }: any) => {
   // Function to check if a product is in the cart
-  const isInCart = (productId: string): boolean => {
-    return cartList.some(
-      (item: { productId: string }) => item.productId === productId
-    );
-  };
+  // const isInCart = (productId: string): boolean => {
+  //   return cartList.some(
+  //     (item: { productId: string }) => item.productId === productId
+  //   );
+  // };
+
+  const productReduxDataProduct = useSelector(
+    (state: RootState) => state.product.productList
+  );
+  // console.log("Redux", productReduxData);
 
   const handleImageError = (e: any) => {
     e.currentTarget.src = "/no-photo.png";
   };
 
+  // useEffect(() => {
+
+  //   if (productReduxDataProduct.length === 0) {
+  //     // Fetch products from API or any other source
+  //     // Example fetch call:
+  //     // fetchProducts().then(products => {
+  //     //   dispatch(setProduct(products));
+  //     // });
+  //   }
+  // }, [productReduxDataProduct]);
+
   return (
     <div className="flex flex-wrap justify-center gap-5 p-2">
-      {products.map((product: any) => (
+      {productReduxDataProduct.map((product: any) => (
         <div
           key={product._id}
           className="min-w-screen bg-white   shadow-lg shadow-slate-500 py-6 px-2 cursor-pointer relative"
         >
           {/* Wish List option */}
-          <div 
-          className=" absolute right-4 top-4 " 
-          onClick={() => handleAddProductToWishList(product._id)}
+          <div
+            className=" absolute right-4 top-4 "
+            onClick={() => handleAddProductToWishList(product._id)}
           >
             {/* {product.wishList?"":""} */}
             <FaRegHeart className="w-8 h-8" />
@@ -86,7 +111,10 @@ const Product: React.FC = ({
           )}  */}
 
             {product.outOfStock ? (
-              <button className="border-2 border-red-400 rounded-full bg-red-400 p-2 md:px-4 lg:px-6 xl:px-8 font-semibold  text-center w-40 xl:w-60 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl" disabled>
+              <button
+                className="border-2 border-red-400 rounded-full bg-red-400 p-2 md:px-4 lg:px-6 xl:px-8 font-semibold  text-center w-40 xl:w-60 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl"
+                disabled
+              >
                 Out of Stock
               </button>
             ) : (

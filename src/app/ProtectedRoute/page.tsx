@@ -11,7 +11,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const router = useRouter();
   const cookies = new Cookies();
-  const isAuthenticated = !!cookies.get('email'); // Check if email cookie exists
+  const isAuthenticated = !!cookies.get('userId'); // Check if email cookie exists
 
   useEffect(() => {
     if (!isAuthenticated) {

@@ -31,7 +31,8 @@ export default function Header() {
 
   const handleLogout = () => {
     // Clear email cookie
-    cookies.remove("email");
+    cookies.remove("loggedin");
+    cookies.remove("userId");
     // Redirect to login page
     router.push("/");
   };

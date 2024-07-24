@@ -5,6 +5,7 @@ const apiUrl = 'http://192.168.1.11:8001/api';
 
 // Function to handle login
 export const login = async (email: string, password: string) => {
+
   try {
     const response = await axios.post(`${apiUrl}/auth/sign-in`, { email, password });
     return response.data; // Return the data received from the API

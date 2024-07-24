@@ -1,10 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import wishlistSlice from "./features/wishlistSlice";
+
+
+import logInSlice from "./features/logInSlice";
+import categorySlice from "./features/categorySlice";
+import wishlistSlice from "./features/wishListSlice";
+import productSlice from "./features/productSlice";
 
 export const store = () => {
   return configureStore({
     reducer: {
+      signIn : logInSlice,
+      category : categorySlice,
       wish: wishlistSlice,
+      product : productSlice,
     },
   });
 };

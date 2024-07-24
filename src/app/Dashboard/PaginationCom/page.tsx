@@ -2,25 +2,31 @@ import React from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 interface Props {
   currentPage: number;
-  totalPages: number;
   handlePaginationChange: (page: number) => void;
 }
 
 const PaginationCom: React.FC<Props> = ({
-  totalPages,
   currentPage,
   handlePaginationChange,
 }: Props) => {
-  if (totalPages <= 1) {
+
+  const productReduxDataPage = useSelector(
+    (state: RootState) => state.product.pagination.totalPages
+  );
+  // console.log("Redux", productReduxData);
+
+  if (productReduxDataPage <= 1) {
     return null; // Hide pagination if there is only one page
   }
 
   const renderPageNumbers = () => {
     const pageNumbers = [];
-    const maxVisiblePages = totalPages;
+    const maxVisiblePages = productReduxDataPage;
     // console.log("TotalPage", maxVisiblePages);
     // Maximum number of visible pages in pagination
 
@@ -53,11 +59,11 @@ const PaginationCom: React.FC<Props> = ({
       );
     }
 
-    if (endPage < totalPages) {
+    if (endPage < productReduxDataPage) {
       pageNumbers.push(
         <PaginationItem
           key="end-ellipsis"
-          page={totalPages}
+          page={productReduxDataPage}
           onClick={handlePaginationChange}
         />
       );
@@ -74,7 +80,7 @@ const PaginationCom: React.FC<Props> = ({
       justifyContent="center"
     >
       <Pagination
-        count={totalPages}
+        count={productReduxDataPage}
         page={currentPage}
         onChange={(event, value) => handlePaginationChange(value)}
         color="primary"

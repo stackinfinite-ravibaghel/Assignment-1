@@ -18,14 +18,28 @@ import {
 
 import { login } from "../../Services/page";
 
+import { useAppDispatch } from "../../../redux/hook";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { setSignIn } from "@/redux/features/logInSlice";
+
+interface FormValues {
+  email: string;
+  password: string;
+}
+
 const Forms: React.FC = () => {
   const router = useRouter();
   const cookies = new Cookies();
-  const [isAuthenticated, setIsAuthenticated] = useState(false); 
+
+  const dispatch = useAppDispatch();
+  // const loginReduxDataId = useSelector((state: RootState) => state.signIn._id);
+  // console.log("Redux",loginReduxDataId);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false); 
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
 
   const openModal = () => {
     setShowForgotPasswordModal(true);
@@ -50,16 +64,19 @@ const Forms: React.FC = () => {
       .required("Password is required"),
   });
 
-  const handleSubmit = async (values: { email: string; password: string }) => {
+  const handleSubmit = async (values: FormValues) => {
     const { email, password } = values;
 
     try {
       const loginResponse = await login(email, password);
-      toast.success("Login successful.");
-      console.log("Login successful:", loginResponse);
-      cookies.set("email", email,  { path: "/" });
-      cookies.set("userId", loginResponse._id,  );
+      // console.log("Login successful:", loginResponse);
+      dispatch(setSignIn(loginResponse));
+
+      cookies.set("loggedin", true);
+      cookies.set("userId", loginResponse._id);
+      
       setIsAuthenticated(true);
+      toast.success("Login successful.");
       router.push(`Dashboard`);
     } catch (error: any) {
       const errorMessage =
@@ -93,6 +110,7 @@ const Forms: React.FC = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
+        {({ errors }) => (
         <Form className="py-8 px-4 rounded-lg  w-full max-w-md">
           <div className="flex flex-col my-5 items-center justify-center ">
             <h2 className="text-md sm:text-2xl lg:text-3xl font-bold text-green-500 mb-2 ">
@@ -305,6 +323,7 @@ const Forms: React.FC = () => {
             </button>
           </div>
         </Form>
+        )}
       </Formik>
     </div>
   );

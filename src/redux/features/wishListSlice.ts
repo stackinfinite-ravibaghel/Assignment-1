@@ -11,7 +11,7 @@ const initialState: IWishList = {
 };
 
 export const essaySlice = createSlice({
-  name: "wishlistSlice",
+  name: "wishListSlice",
   initialState,
   reducers: {
     // This state is for demo purpose

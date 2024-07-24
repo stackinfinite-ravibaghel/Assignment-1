@@ -28,7 +28,7 @@ export default function RootLayout({
   const pathname = usePathname();
 
   // condition layout - Pathname - Array
-  const display: any = ["/", "/SignUp"];
+  const display: string[] = ["/", "/SignUp"];
 
   return (
     <html lang="en">
@@ -40,6 +40,14 @@ export default function RootLayout({
 
         {/* Condition for display Footer */}
         {display.includes(pathname) ? null : <Footer />}
+
+        {/* Conditionally render Header */}
+        {/* {!display.includes(pathname) && <Header />} */}
+        {/* <Toaster position="bottom-center" /> */}
+        {/* <Provider store={store}>{children}</Provider> */}
+        {/* Conditionally render Footer */}
+        {/* {!display.includes(pathname) && <Footer />} */}
+        
       </body>
     </html>
   );

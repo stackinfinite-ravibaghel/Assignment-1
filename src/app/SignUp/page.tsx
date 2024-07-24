@@ -17,10 +17,12 @@ import Logo from "../Component/UI/Logo/page";
 import Link from "next/link";
 
 import { signup } from "../Services/page";
+import { cookies } from "next/headers";
 
 // SignUp component
 const SignUp: React.FC = () => {
   const router = useRouter();
+  const cookies = new Cookies();
   const [showPassword, setShowPassword] = useState(false);
 
   // Function to toggle password visibility
@@ -59,6 +61,8 @@ const SignUp: React.FC = () => {
       const signupResponse = await signup(fullName , email , password)
 
       // Redirect to Dashboard upon successful signup
+      cookies.set("loggedin", true);
+      cookies.set("userId", signupResponse._id);
       router.push("/Dashboard");
       toast.success("Sign Up successful.");
       console.log("Sign Up successful:", signupResponse);

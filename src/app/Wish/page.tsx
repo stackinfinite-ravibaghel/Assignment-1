@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Cookies from "universal-cookie";
 import toast from "react-hot-toast";
 
 import { useAppDispatch } from "@/redux/hook";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { setWishList } from "@/redux/features/wishlistSlice";
+import { setWishList } from "@/redux/features/wishListSlice";
 
 import { RiDeleteBin6Line } from "react-icons/ri";
 
@@ -17,6 +17,7 @@ import {
 } from "../Services/page";
 
 export default function Wish() {
+
   const cookies = new Cookies();
   const userId = cookies.get("userId");
 
@@ -37,7 +38,7 @@ export default function Wish() {
   useEffect(() => {
     fetchWishListData();
   }, []);
-  console.log(_wishlist);
+  // console.log("Hum hai",_wishlist);
 
   // Add to CartRiDeleteBin6Line
   const handleAddToCart = async (ProductId: any) => {
